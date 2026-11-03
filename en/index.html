@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;1,400&family=Imbue:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles.css?v=fa918d32">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -105,81 +105,57 @@
 
 <section class="work" id="work" aria-labelledby="work-title">
   <h2 id="work-title" class="section-title work__title">Projects</h2>
-  <article class="project" id="project-homelab" aria-labelledby="t-homelab">
-        <div class="project__track">
-          <div class="project__stage">
-            <figure class="pane pane--left"><img src="../assets/cisco-2960.jpg" width="1600" height="1200" alt="Circuit board of a Cisco Catalyst 2960 switch, close-up of its Broadcom chips" loading="lazy" decoding="async"><figcaption>The heart of the network: a Cisco 2960</figcaption></figure>
-            <figure class="pane pane--right"><img src="../assets/cisco-2960-detail.jpg" width="900" height="1200" alt="Close-up of a Broadcom chip on the switch board" loading="lazy" decoding="async"><figcaption>A switching chip, up close</figcaption></figure>
-            <div class="project__head">
-              <h3 class="plate" id="t-homelab">Homelab</h3>
-            </div>
-            <p class="project__discipline">Personal infrastructure, in progress</p>
-          </div>
+  <article class="project project--photo" id="project-homelab" aria-labelledby="t-homelab">
+        <div class="project__media"><figure class="shot"><img src="../assets/cisco-2960.jpg" width="1600" height="1200" alt="Circuit board of a Cisco Catalyst 2960 switch, close-up of its Broadcom chips" loading="lazy" decoding="async"><figcaption>Inside a Cisco Catalyst 2960, the switch that carries my VLANs.</figcaption></figure></div>
+        <div class="project__text">
+          <h3 class="project__title" id="t-homelab">Homelab</h3>
+          <p class="project__discipline">Personal infrastructure, in progress</p>
+          <h4>Why</h4><p>To host everyday services myself, for free and in control of my own data, and later share them with my family. It is also my training ground: infrastructure, networking, cloud, defensive and offensive security. The aim is not to master everything, but to understand how the pieces fit together.</p><h4>What is planned</h4><p>A Proxmox hypervisor, an OPNsense firewall, four VLANs (LAN, LAB, DMZ, ADMIN) on a Cisco 2960 switch, a WireGuard VPN, monitoring with Prometheus and Grafana, a Wazuh SIEM and self-hosted services.</p><h4>Where it stands</h4><p>Phase 1 of 10 complete: the hardware. Next step, installing Proxmox.</p>
+          <p class="project__stack">Proxmox, OPNsense, Cisco IOS, WireGuard, Wazuh, Prometheus, Grafana, Docker</p>
+          <a class="link" href="https://github.com/Audrax42/homelab" rel="noopener">Documentation on GitHub</a>
         </div>
-        <div class="project__body">
-          <div class="project__block"><h4>Why</h4><p>To host everyday services myself, for free and in control of my own data, and later share them with my family. It is also my training ground: infrastructure, networking, cloud, defensive and offensive security. The aim is not to master everything, but to understand how the pieces fit together.</p></div><div class="project__block"><h4>What is planned</h4><p>A Proxmox hypervisor, an OPNsense firewall, four VLANs (LAN, LAB, DMZ, ADMIN) on a Cisco 2960 switch, a WireGuard VPN, monitoring with Prometheus and Grafana, a Wazuh SIEM and self-hosted services.</p></div><div class="project__block"><h4>Where it stands</h4><p>Phase 1 of 10 complete: the hardware. Next step, installing Proxmox.</p></div>
-          <div class="project__block project__block--meta">
-            <p class="project__stack">Proxmox, OPNsense, Cisco IOS, WireGuard, Wazuh, Prometheus, Grafana, Docker</p>
-            
-            <a class="link" href="https://github.com/Audrax42/homelab" rel="noopener">Documentation on GitHub</a>
-          </div>
+      </article><article class="project project--photo" id="project-aquatrack" aria-labelledby="t-aquatrack">
+        <div class="project__media"><figure class="shot"><img src="../assets/esp32-cam.jpg" width="1000" height="1312" alt="An ESP32-CAM module seen from the front, with its camera and card reader" loading="lazy" decoding="async"><figcaption>An ESP32-CAM module, the heart of the sensor.</figcaption></figure></div>
+        <div class="project__text">
+          <h3 class="project__title" id="t-aquatrack">Aquatrack</h3>
+          <p class="project__discipline">Embedded system, BTS project, 2026</p>
+          <h4>The challenge</h4><p>The aquarium topic was set for us. Underneath, the question was the same as for any connected device: how do you collect data reliably and deliver it without loss, even when the network fails?</p><h4>My part</h4><p>I built the ESP32-CAM module: automatic photo capture at an interval the user sets, then delivery to the project’s API over HTTP. I worked on resilience with automatic Wi-Fi reconnection, error handling, a memory buffer and persistent logs, so nothing is lost when the connection drops.</p>
+          <p class="project__stack">C++, ESP32-CAM, HTTP, REST API, Wi-Fi</p>
+          
         </div>
-      </article><article class="project" id="project-aquatrack" aria-labelledby="t-aquatrack">
-        <div class="project__track">
-          <div class="project__stage">
-            <figure class="pane pane--left"><img src="../assets/esp32-cam.jpg" width="1000" height="1312" alt="An ESP32-CAM module seen from the front, with its camera and card reader" loading="lazy" decoding="async"><figcaption>An ESP32-CAM module</figcaption></figure>
-            <figure class="pane pane--right"><img src="../assets/esp32-cam-detail.jpg" width="820" height="1080" alt="Close-up of the ESP32-CAM camera lens" loading="lazy" decoding="async"><figcaption>The camera, up close</figcaption></figure>
-            <div class="project__head">
-              <h3 class="plate" id="t-aquatrack">Aquatrack</h3>
-            </div>
-            <p class="project__discipline">Embedded system, BTS project, 2026</p>
-          </div>
+      </article><article class="project project--devices" id="project-relsa" aria-labelledby="t-relsa">
+        <div class="project__media"><figure class="shot shot--devices">
+      <div class="devices">
+        <img class="devices__desktop" src="../assets/relsa-desktop.jpg" width="1280" height="779" alt="The relsa.es home page on a desktop screen" loading="lazy" decoding="async">
+        <img class="devices__phone" src="../assets/relsa-mobile.jpg" width="560" height="969" alt="The relsa.es home page on a phone" loading="lazy" decoding="async">
+      </div>
+      <figcaption>relsa.es, on desktop and on a phone.</figcaption>
+    </figure></div>
+        <div class="project__text">
+          <h3 class="project__title" id="t-relsa">RELSA</h3>
+          <p class="project__discipline">Company website redesign, Nitsnets internship, 2025</p>
+          <h4>The context</h4><p>A complete redesign of the website of RELSA, an industrial installation and maintenance company based in Sabadell, Spain, part of the Estabanell group.</p><h4>My part</h4><p>Back-end development within a team, with daily follow-ups and a weekly report.</p>
+          <p class="project__stack">Back-end web development, teamwork, agile method</p>
+          <a class="link" href="https://relsa.es" rel="noopener">relsa.es</a>
         </div>
-        <div class="project__body">
-          <div class="project__block"><h4>The challenge</h4><p>The aquarium topic was set for us. Underneath, the question was the same as for any connected device: how do you collect data reliably and deliver it without loss, even when the network fails?</p></div><div class="project__block"><h4>My part</h4><p>I built the ESP32-CAM module: automatic photo capture at an interval the user sets, then delivery to the project’s API over HTTP. I worked on resilience with automatic Wi-Fi reconnection, error handling, a memory buffer and persistent logs, so nothing is lost when the connection drops.</p></div>
-          <div class="project__block project__block--meta">
-            <p class="project__stack">C++, ESP32-CAM, HTTP, REST API, Wi-Fi</p>
-            
-            
-          </div>
-        </div>
-      </article><article class="project" id="project-relsa" aria-labelledby="t-relsa">
-        <div class="project__track">
-          <div class="project__stage">
-            <figure class="pane pane--left"><img src="../assets/relsa-desktop.jpg" width="1200" height="1200" alt="The relsa.es home page on a desktop screen" loading="lazy" decoding="async"><figcaption>relsa.es on desktop</figcaption></figure>
-            <figure class="pane pane--right pane--contain"><img src="../assets/relsa-mobile.jpg" width="840" height="1200" alt="The relsa.es home page on a phone" loading="lazy" decoding="async"><figcaption>And on a phone</figcaption></figure>
-            <div class="project__head">
-              <h3 class="plate" id="t-relsa">RELSA</h3>
-            </div>
-            <p class="project__discipline">Company website redesign, Nitsnets internship, 2025</p>
-          </div>
-        </div>
-        <div class="project__body">
-          <div class="project__block"><h4>The context</h4><p>A complete redesign of the website of RELSA, an industrial installation and maintenance company based in Sabadell, Spain, part of the Estabanell group.</p></div><div class="project__block"><h4>My part</h4><p>Back-end development within a team, with daily follow-ups and a weekly report.</p></div>
-          <div class="project__block project__block--meta">
-            <p class="project__stack">Back-end web development, teamwork, agile method</p>
-            
-            <a class="link" href="https://relsa.es" rel="noopener">relsa.es</a>
-          </div>
-        </div>
-      </article><article class="project" id="project-compression" aria-labelledby="t-compression">
-        <div class="project__track">
-          <div class="project__stage">
-            <figure class="pane pane--left"><img src="../assets/compress-avant.jpg" width="1200" height="1668" alt="Photo of the portal of Amiens cathedral, original version" loading="lazy" decoding="async"><figcaption>Before: 544 KB</figcaption></figure>
-            <figure class="pane pane--right"><img src="../assets/compress-apres.jpg" width="1200" height="1668" alt="The same photo after compression, visually identical" loading="lazy" decoding="async"><figcaption>After: 108 KB, five times lighter</figcaption></figure>
-            <div class="project__head">
-              <h3 class="plate" id="t-compression">Compressor</h3>
-            </div>
-            <p class="project__discipline">Web application, Nitsnets internship, 2025</p>
-          </div>
-        </div>
-        <div class="project__body">
-          <div class="project__block"><h4>The problem</h4><p>Heavy images slow websites down, and the existing tools are often paid, limited or not trustworthy.</p></div><div class="project__block"><h4>The solution</h4><p>A web app built from scratch that compresses images consistently. Simple, free, unlimited and secure: files are processed on the server, never sent to a third-party service. The code belongs to the company and stays private.</p></div>
-          <div class="project__block project__block--meta">
-            <p class="project__stack">Laravel, PHP</p>
-            <p class="project__note">On either side of the line, the same photo before and after the same kind of compression.</p>
-            
-          </div>
+      </article><article class="project project--compare" id="project-compression" aria-labelledby="t-compression">
+        <div class="project__media"><figure class="shot shot--compare">
+      <div class="compare" style="--x: 50%">
+        <img class="compare__before" src="../assets/compress-avant.jpg" width="1200" height="1668" alt="The portal of Amiens cathedral at night" loading="lazy" decoding="async">
+        <img class="compare__after" src="../assets/compress-apres.jpg" width="1200" height="1668" alt="" loading="lazy" decoding="async">
+        <span class="compare__label compare__label--before">Original, 544 KB</span>
+        <span class="compare__label compare__label--after">Compressed, 108 KB</span>
+        <span class="compare__handle" aria-hidden="true"></span>
+        <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="Compare the original and the compressed version">
+      </div>
+      <figcaption>Drag: the same photo, five times lighter.</figcaption>
+    </figure></div>
+        <div class="project__text">
+          <h3 class="project__title" id="t-compression">Compressor</h3>
+          <p class="project__discipline">Web application, Nitsnets internship, 2025</p>
+          <h4>The problem</h4><p>Heavy images slow websites down, and the existing tools are often paid, limited or not trustworthy.</p><h4>The solution</h4><p>A web app built from scratch that compresses images consistently. Simple, free, unlimited and secure: files are processed on the server, never sent to a third-party service. The code belongs to the company and stays private.</p>
+          <p class="project__stack">Laravel, PHP</p>
+          
         </div>
       </article>
 </section>
@@ -330,6 +306,6 @@
   </div>
 </footer>
 
-<script src="../main.js" defer></script>
+<script src="../main.js?v=c9d9e2fd" defer></script>
 </body>
 </html>

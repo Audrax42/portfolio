@@ -71,8 +71,31 @@ function img({ src, w, h, alt, pos, lazy = true, cls = '' }, base) {
   return `<img${cls ? ` class="${cls}"` : ''} src="${base}${src}" width="${w}" height="${h}" alt="${esc(alt)}"${pos ? ` style="object-position:${pos}"` : ''}${lazy ? ' loading="lazy"' : ''} decoding="async">`;
 }
 
-function pane(p, side, base) {
-  return `<figure class="pane pane--${side}${p.fit === 'contain' ? ' pane--contain' : ''}">${img({ ...p }, base)}<figcaption>${esc(p.label)}</figcaption></figure>`;
+// One picture per project, shown whole: a photograph, a site on two screens, or a before/after slider.
+function media(m, base) {
+  if (m.kind === 'devices') {
+    return `<figure class="shot shot--devices">
+      <div class="devices">
+        ${img({ ...m.desktop, cls: 'devices__desktop' }, base)}
+        ${img({ ...m.phone, cls: 'devices__phone' }, base)}
+      </div>
+      <figcaption>${esc(m.caption)}</figcaption>
+    </figure>`;
+  }
+  if (m.kind === 'compare') {
+    return `<figure class="shot shot--compare">
+      <div class="compare" style="--x: 50%">
+        ${img({ src: m.before.src, w: m.w, h: m.h, alt: m.alt, cls: 'compare__before' }, base)}
+        ${img({ src: m.after.src, w: m.w, h: m.h, alt: '', cls: 'compare__after' }, base)}
+        <span class="compare__label compare__label--before">${esc(m.before.label)}</span>
+        <span class="compare__label compare__label--after">${esc(m.after.label)}</span>
+        <span class="compare__handle" aria-hidden="true"></span>
+        <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="${esc(m.range)}">
+      </div>
+      <figcaption>${esc(m.caption)}</figcaption>
+    </figure>`;
+  }
+  return `<figure class="shot">${img({ ...m }, base)}<figcaption>${esc(m.caption)}</figcaption></figure>`;
 }
 
 export function render(c) {
@@ -110,24 +133,14 @@ export function render(c) {
 
   const projects = c.work.projects
     .map(
-      (p) => `<article class="project" id="project-${p.id}" aria-labelledby="t-${p.id}">
-        <div class="project__track">
-          <div class="project__stage">
-            ${pane(p.left, 'left', base)}
-            ${pane(p.right, 'right', base)}
-            <div class="project__head">
-              <h3 class="plate" id="t-${p.id}">${esc(p.title)}</h3>
-            </div>
-            <p class="project__discipline">${esc(p.discipline)}</p>
-          </div>
-        </div>
-        <div class="project__body">
-          ${p.blocks.map(([h, t]) => `<div class="project__block"><h4>${esc(h)}</h4><p>${esc(t)}</p></div>`).join('')}
-          <div class="project__block project__block--meta">
-            <p class="project__stack">${esc(p.stack)}</p>
-            ${p.demoNote ? `<p class="project__note">${esc(p.demoNote)}</p>` : ''}
-            ${p.link ? `<a class="link" href="${p.link.href}" rel="noopener">${esc(p.link.label)}</a>` : ''}
-          </div>
+      (p) => `<article class="project project--${p.media.kind}" id="project-${p.id}" aria-labelledby="t-${p.id}">
+        <div class="project__media">${media(p.media, base)}</div>
+        <div class="project__text">
+          <h3 class="project__title" id="t-${p.id}">${esc(p.title)}</h3>
+          <p class="project__discipline">${esc(p.discipline)}</p>
+          ${p.blocks.map(([h, t]) => `<h4>${esc(h)}</h4><p>${esc(t)}</p>`).join('')}
+          <p class="project__stack">${esc(p.stack)}</p>
+          ${p.link ? `<a class="link" href="${p.link.href}" rel="noopener">${esc(p.link.label)}</a>` : ''}
         </div>
       </article>`
     )

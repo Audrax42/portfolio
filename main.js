@@ -19,29 +19,16 @@
   );
   document.querySelectorAll('[data-scene-trigger]').forEach((el) => sceneObserver.observe(el));
 
-  // Scroll-linked motion: the wordmark settles as the first screen leaves,
-  // and each project title tears at the seam until its project is centred.
+  // Scroll-linked motion: the wordmark settles as the first screen leaves.
   const wordmark = document.querySelector('.wordmark');
-  const tracks = [...document.querySelectorAll('.project__track')];
   let ticking = false;
 
   const update = () => {
     ticking = false;
-    const vh = window.innerHeight;
     if (wordmark && wide.matches && !reduce) {
-      const p = Math.min(1, Math.max(0, window.scrollY / vh));
+      const p = Math.min(1, Math.max(0, window.scrollY / window.innerHeight));
       wordmark.style.scale = String(1 - 0.07 * p);
     }
-    tracks.forEach((track) => {
-      const stage = track.firstElementChild;
-      if (reduce) return stage.style.setProperty('--d', '0');
-      const r = track.getBoundingClientRect();
-      const span = r.height - vh;
-      const p = Math.min(1, Math.max(0, -r.top / span));
-      // Aligned through the middle of the hold, torn at the ends.
-      const d = p < 0.3 ? (p - 0.3) / 0.3 : p > 0.7 ? (p - 0.7) / 0.3 : 0;
-      stage.style.setProperty('--d', d.toFixed(4));
-    });
   };
   const onScroll = () => {
     if (!ticking) {
@@ -52,6 +39,12 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   update();
+
+  // The compressor demo: drag to compare the original with the compressed photo.
+  document.querySelectorAll('.compare').forEach((box) => {
+    const range = box.querySelector('.compare__range');
+    range.addEventListener('input', () => box.style.setProperty('--x', `${range.value}%`));
+  });
 
   // The homelab plan: choose a piece, read its role, services and status.
   const data = JSON.parse(document.getElementById('lab-data')?.textContent || 'null');
@@ -80,20 +73,16 @@
     );
   }
 
-  // Entrances: the parts of each section arrive in reading order, once. Nothing is hidden up front:
+  // Entrances: list rows arrive in reading order, once. Nothing is hidden up front:
   // the animation starts just before an element scrolls into view and fills backwards from there.
   if (!reduce && 'IntersectionObserver' in window && Element.prototype.animate) {
+    // Only lists arrive row by row; paragraphs and pictures stay put.
     const groups = [
-      '.about > *',
-      '.chapter > *, .chapter .rows li',
-      '.path .section-title',
-      '.project__body > *',
-      '.work__title',
-      '.lab__head > *, .lab__detail, .lab__roadmap, .lab__body > .map .node',
-      '.menu__title, .menu__group h3, .menu__item',
-      '.names .section-title, .names__cols li',
-      '.contact > *',
-      '.foot__menu li, .foot__blocks > *',
+      '.chapter .rows li',
+      '.lab__body > .map .node, .lab__roadmap li',
+      '.menu__item',
+      '.names__cols li',
+      '.foot__menu li',
     ];
     const items = [];
     groups.forEach((sel) => {

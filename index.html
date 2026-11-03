@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;1,400&family=Imbue:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=fa918d32">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -105,81 +105,57 @@
 
 <section class="work" id="work" aria-labelledby="work-title">
   <h2 id="work-title" class="section-title work__title">Projets</h2>
-  <article class="project" id="project-homelab" aria-labelledby="t-homelab">
-        <div class="project__track">
-          <div class="project__stage">
-            <figure class="pane pane--left"><img src="assets/cisco-2960.jpg" width="1600" height="1200" alt="Carte électronique d’un switch Cisco Catalyst 2960, puces Broadcom en gros plan" loading="lazy" decoding="async"><figcaption>Le cœur du réseau : un Cisco 2960</figcaption></figure>
-            <figure class="pane pane--right"><img src="assets/cisco-2960-detail.jpg" width="900" height="1200" alt="Gros plan sur une puce Broadcom de la carte du switch" loading="lazy" decoding="async"><figcaption>Une puce de commutation, en détail</figcaption></figure>
-            <div class="project__head">
-              <h3 class="plate" id="t-homelab">Homelab</h3>
-            </div>
-            <p class="project__discipline">Infrastructure personnelle, en cours</p>
-          </div>
+  <article class="project project--photo" id="project-homelab" aria-labelledby="t-homelab">
+        <div class="project__media"><figure class="shot"><img src="assets/cisco-2960.jpg" width="1600" height="1200" alt="Carte électronique d’un switch Cisco Catalyst 2960, puces Broadcom en gros plan" loading="lazy" decoding="async"><figcaption>L’intérieur d’un Cisco Catalyst 2960, le switch qui porte mes VLAN.</figcaption></figure></div>
+        <div class="project__text">
+          <h3 class="project__title" id="t-homelab">Homelab</h3>
+          <p class="project__discipline">Infrastructure personnelle, en cours</p>
+          <h4>Pourquoi</h4><p>Héberger moi-même des services du quotidien, gratuitement et en gardant le contrôle de mes données, puis en faire profiter mes proches. C’est aussi mon terrain d’apprentissage : infrastructure, réseau, cloud, cybersécurité défensive et offensive. Je ne cherche pas à tout maîtriser, mais à comprendre comment les pièces s’assemblent.</p><h4>Ce qui est prévu</h4><p>Un hyperviseur Proxmox, un pare-feu OPNsense, quatre VLAN (LAN, LAB, DMZ, ADMIN) sur un switch Cisco 2960, un VPN WireGuard, la supervision avec Prometheus et Grafana, un SIEM Wazuh et des services auto-hébergés.</p><h4>Où j’en suis</h4><p>Phase 1 sur 10 terminée : le matériel. Prochaine étape, l’installation de Proxmox.</p>
+          <p class="project__stack">Proxmox, OPNsense, Cisco IOS, WireGuard, Wazuh, Prometheus, Grafana, Docker</p>
+          <a class="link" href="https://github.com/Audrax42/homelab" rel="noopener">La documentation sur GitHub</a>
         </div>
-        <div class="project__body">
-          <div class="project__block"><h4>Pourquoi</h4><p>Héberger moi-même des services du quotidien, gratuitement et en gardant le contrôle de mes données, puis en faire profiter mes proches. C’est aussi mon terrain d’apprentissage : infrastructure, réseau, cloud, cybersécurité défensive et offensive. Je ne cherche pas à tout maîtriser, mais à comprendre comment les pièces s’assemblent.</p></div><div class="project__block"><h4>Ce qui est prévu</h4><p>Un hyperviseur Proxmox, un pare-feu OPNsense, quatre VLAN (LAN, LAB, DMZ, ADMIN) sur un switch Cisco 2960, un VPN WireGuard, la supervision avec Prometheus et Grafana, un SIEM Wazuh et des services auto-hébergés.</p></div><div class="project__block"><h4>Où j’en suis</h4><p>Phase 1 sur 10 terminée : le matériel. Prochaine étape, l’installation de Proxmox.</p></div>
-          <div class="project__block project__block--meta">
-            <p class="project__stack">Proxmox, OPNsense, Cisco IOS, WireGuard, Wazuh, Prometheus, Grafana, Docker</p>
-            
-            <a class="link" href="https://github.com/Audrax42/homelab" rel="noopener">La documentation sur GitHub</a>
-          </div>
+      </article><article class="project project--photo" id="project-aquatrack" aria-labelledby="t-aquatrack">
+        <div class="project__media"><figure class="shot"><img src="assets/esp32-cam.jpg" width="1000" height="1312" alt="Module ESP32-CAM vu de face, avec sa caméra et son lecteur de carte" loading="lazy" decoding="async"><figcaption>Un module ESP32-CAM, le cœur du capteur.</figcaption></figure></div>
+        <div class="project__text">
+          <h3 class="project__title" id="t-aquatrack">Aquatrack</h3>
+          <p class="project__discipline">Système embarqué, projet de BTS, 2026</p>
+          <h4>Le défi</h4><p>Le sujet de l’aquarium était imposé. Au fond, la question était celle de tout objet connecté : comment collecter des données de façon fiable et les acheminer sans perte, même quand le réseau flanche ?</p><h4>Mon rôle</h4><p>J’ai développé le module ESP32-CAM : une prise de photo automatique dont l’utilisateur règle la fréquence, puis l’envoi vers l’API du projet en HTTP. J’ai travaillé la robustesse avec la reconnexion Wi-Fi automatique, la gestion des erreurs, un tampon mémoire et des journaux persistants pour ne rien perdre en cas de coupure.</p>
+          <p class="project__stack">C++, ESP32-CAM, HTTP, API REST, Wi-Fi</p>
+          
         </div>
-      </article><article class="project" id="project-aquatrack" aria-labelledby="t-aquatrack">
-        <div class="project__track">
-          <div class="project__stage">
-            <figure class="pane pane--left"><img src="assets/esp32-cam.jpg" width="1000" height="1312" alt="Module ESP32-CAM vu de face, avec sa caméra et son lecteur de carte" loading="lazy" decoding="async"><figcaption>Un module ESP32-CAM</figcaption></figure>
-            <figure class="pane pane--right"><img src="assets/esp32-cam-detail.jpg" width="820" height="1080" alt="Gros plan sur l’objectif de la caméra de l’ESP32-CAM" loading="lazy" decoding="async"><figcaption>La caméra, en détail</figcaption></figure>
-            <div class="project__head">
-              <h3 class="plate" id="t-aquatrack">Aquatrack</h3>
-            </div>
-            <p class="project__discipline">Système embarqué, projet de BTS, 2026</p>
-          </div>
+      </article><article class="project project--devices" id="project-relsa" aria-labelledby="t-relsa">
+        <div class="project__media"><figure class="shot shot--devices">
+      <div class="devices">
+        <img class="devices__desktop" src="assets/relsa-desktop.jpg" width="1280" height="779" alt="Page d’accueil de relsa.es sur ordinateur" loading="lazy" decoding="async">
+        <img class="devices__phone" src="assets/relsa-mobile.jpg" width="560" height="969" alt="Page d’accueil de relsa.es sur téléphone" loading="lazy" decoding="async">
+      </div>
+      <figcaption>relsa.es, sur ordinateur et sur téléphone.</figcaption>
+    </figure></div>
+        <div class="project__text">
+          <h3 class="project__title" id="t-relsa">RELSA</h3>
+          <p class="project__discipline">Refonte d’un site d’entreprise, stage chez Nitsnets, 2025</p>
+          <h4>Le contexte</h4><p>Refonte complète du site de RELSA, entreprise d’installation et de maintenance industrielle basée à Sabadell, en Espagne, membre du groupe Estabanell.</p><h4>Mon rôle</h4><p>Contribution au développement backend, au sein d’une équipe avec un suivi quotidien et un rapport chaque semaine.</p>
+          <p class="project__stack">Développement web backend, travail en équipe, méthode agile</p>
+          <a class="link" href="https://relsa.es" rel="noopener">relsa.es</a>
         </div>
-        <div class="project__body">
-          <div class="project__block"><h4>Le défi</h4><p>Le sujet de l’aquarium était imposé. Au fond, la question était celle de tout objet connecté : comment collecter des données de façon fiable et les acheminer sans perte, même quand le réseau flanche ?</p></div><div class="project__block"><h4>Mon rôle</h4><p>J’ai développé le module ESP32-CAM : une prise de photo automatique dont l’utilisateur règle la fréquence, puis l’envoi vers l’API du projet en HTTP. J’ai travaillé la robustesse avec la reconnexion Wi-Fi automatique, la gestion des erreurs, un tampon mémoire et des journaux persistants pour ne rien perdre en cas de coupure.</p></div>
-          <div class="project__block project__block--meta">
-            <p class="project__stack">C++, ESP32-CAM, HTTP, API REST, Wi-Fi</p>
-            
-            
-          </div>
-        </div>
-      </article><article class="project" id="project-relsa" aria-labelledby="t-relsa">
-        <div class="project__track">
-          <div class="project__stage">
-            <figure class="pane pane--left"><img src="assets/relsa-desktop.jpg" width="1200" height="1200" alt="Page d’accueil du site relsa.es sur ordinateur" loading="lazy" decoding="async"><figcaption>relsa.es sur ordinateur</figcaption></figure>
-            <figure class="pane pane--right pane--contain"><img src="assets/relsa-mobile.jpg" width="840" height="1200" alt="Page d’accueil du site relsa.es sur téléphone" loading="lazy" decoding="async"><figcaption>Et sur téléphone</figcaption></figure>
-            <div class="project__head">
-              <h3 class="plate" id="t-relsa">RELSA</h3>
-            </div>
-            <p class="project__discipline">Refonte d’un site d’entreprise, stage chez Nitsnets, 2025</p>
-          </div>
-        </div>
-        <div class="project__body">
-          <div class="project__block"><h4>Le contexte</h4><p>Refonte complète du site de RELSA, entreprise d’installation et de maintenance industrielle basée à Sabadell, en Espagne, membre du groupe Estabanell.</p></div><div class="project__block"><h4>Mon rôle</h4><p>Contribution au développement backend, au sein d’une équipe avec un suivi quotidien et un rapport chaque semaine.</p></div>
-          <div class="project__block project__block--meta">
-            <p class="project__stack">Développement web backend, travail en équipe, méthode agile</p>
-            
-            <a class="link" href="https://relsa.es" rel="noopener">relsa.es</a>
-          </div>
-        </div>
-      </article><article class="project" id="project-compression" aria-labelledby="t-compression">
-        <div class="project__track">
-          <div class="project__stage">
-            <figure class="pane pane--left"><img src="assets/compress-avant.jpg" width="1200" height="1668" alt="Photo du portail de la cathédrale d’Amiens, version originale" loading="lazy" decoding="async"><figcaption>Avant : 544 Ko</figcaption></figure>
-            <figure class="pane pane--right"><img src="assets/compress-apres.jpg" width="1200" height="1668" alt="La même photo après compression, visuellement identique" loading="lazy" decoding="async"><figcaption>Après : 108 Ko, cinq fois plus léger</figcaption></figure>
-            <div class="project__head">
-              <h3 class="plate" id="t-compression">Compresseur</h3>
-            </div>
-            <p class="project__discipline">Application web, stage chez Nitsnets, 2025</p>
-          </div>
-        </div>
-        <div class="project__body">
-          <div class="project__block"><h4>Le problème</h4><p>Des images trop lourdes ralentissent le chargement des sites, et les outils existants sont souvent payants, limités ou peu sûrs.</p></div><div class="project__block"><h4>La solution</h4><p>Une application web développée de A à Z qui compresse les images de façon uniforme. Simple, gratuite, sans limite d’usage et sécurisée : les fichiers sont traités sur le serveur, sans passer par un service tiers. Le code appartient à l’entreprise et reste privé.</p></div>
-          <div class="project__block project__block--meta">
-            <p class="project__stack">Laravel, PHP</p>
-            <p class="project__note">De part et d’autre de la ligne, la même photo avant et après une compression du même type.</p>
-            
-          </div>
+      </article><article class="project project--compare" id="project-compression" aria-labelledby="t-compression">
+        <div class="project__media"><figure class="shot shot--compare">
+      <div class="compare" style="--x: 50%">
+        <img class="compare__before" src="assets/compress-avant.jpg" width="1200" height="1668" alt="Portail de la cathédrale d’Amiens, la nuit" loading="lazy" decoding="async">
+        <img class="compare__after" src="assets/compress-apres.jpg" width="1200" height="1668" alt="" loading="lazy" decoding="async">
+        <span class="compare__label compare__label--before">Original, 544 Ko</span>
+        <span class="compare__label compare__label--after">Compressée, 108 Ko</span>
+        <span class="compare__handle" aria-hidden="true"></span>
+        <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="Comparer l’original et la version compressée">
+      </div>
+      <figcaption>Fais glisser : la même photo, cinq fois plus légère.</figcaption>
+    </figure></div>
+        <div class="project__text">
+          <h3 class="project__title" id="t-compression">Compresseur</h3>
+          <p class="project__discipline">Application web, stage chez Nitsnets, 2025</p>
+          <h4>Le problème</h4><p>Des images trop lourdes ralentissent le chargement des sites, et les outils existants sont souvent payants, limités ou peu sûrs.</p><h4>La solution</h4><p>Une application web développée de A à Z qui compresse les images de façon uniforme. Simple, gratuite, sans limite d’usage et sécurisée : les fichiers sont traités sur le serveur, sans passer par un service tiers. Le code appartient à l’entreprise et reste privé.</p>
+          <p class="project__stack">Laravel, PHP</p>
+          
         </div>
       </article>
 </section>
@@ -330,6 +306,6 @@
   </div>
 </footer>
 
-<script src="main.js" defer></script>
+<script src="main.js?v=c9d9e2fd" defer></script>
 </body>
 </html>
