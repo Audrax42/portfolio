@@ -44,7 +44,7 @@ export default {
     gargouille: 'Gargouille de la cathédrale d’Amiens, la nuit',
     portail: 'Portail de la cathédrale d’Amiens, la nuit',
     tour: 'La tour de la maison de Jules Verne, Amiens',
-    campanile: 'Le campanile de la basilique de Saint-Quentin, la nuit',
+    citadelle: 'Plan de la citadelle de Doullens, 1660 : une défense en couches',
     veille: 'Saint-Quentin la nuit, vue depuis la galerie de la basilique',
     facade: 'La façade de la cathédrale d’Amiens, la nuit',
     alicante: 'Alicante, vue depuis la garita du château Santa Bárbara',
@@ -73,7 +73,7 @@ export default {
         rows: [['Licence d’économie, Université de Picardie Jules Verne', '2023–2024']],
       },
       {
-        scene: 'campanile',
+        scene: 'veille',
         title: 'Passer au concret',
         text:
           'Le besoin de toucher à la technique a pris le dessus. En BTS, j’ai découvert les réseaux (DNS, VLAN, routage), Linux, la programmation et l’électronique, en théorie comme en pratique. C’est là que j’ai réalisé Aquatrack.',
@@ -90,7 +90,7 @@ export default {
         rows: [['Développeur full stack (stage), Nitsnets, Alicante', 'mai–juillet 2025']],
       },
       {
-        scene: 'veille',
+        scene: 'citadelle',
         title: 'Apprendre à défendre',
         text:
           'J’ai choisi de me spécialiser. En parallèle de l’école, je m’entraîne sur TryHackMe (simulateur SOC, certification SAL1 en préparation) et HackTheBox. Je découvre les SIEM, les EDR, l’analyse de journaux, MITRE ATT&CK, ISO 27001 et NIS2, et je construis mon homelab.',
@@ -175,7 +175,7 @@ export default {
       box: { name: 'Box internet', role: 'L’accès fourni par l’opérateur, en amont de tout le reste.', services: [], status: 'done' },
       switch: { name: 'Switch Cisco 2960', role: 'Le commutateur administrable qui porte la segmentation en VLAN.', services: ['VLAN 10, 20, 30, 40', 'Ports trunk vers Proxmox'], status: 'done' },
       proxmox: { name: 'Mini PC Proxmox', role: 'L’hyperviseur principal. Il fait tourner le pare-feu et les machines virtuelles.', services: ['OPNsense', 'Wazuh', 'Kali Linux', 'Gitea', 'Vaultwarden', 'Nextcloud', 'Immich'], status: 'next' },
-      opnsense: { name: 'OPNsense', role: 'Pare-feu et routeur entre les VLAN : c’est lui qui décide qui parle à qui.', services: ['Filtrage inter-VLAN', 'Routage', 'VPN éventuel'], status: 'planned' },
+      opnsense: { name: 'OPNsense', role: 'Une VM sur le mini PC Proxmox, reliée au switch en trunk. Pare-feu et passerelle de chaque VLAN (192.168.x.1) : c’est elle qui décide qui parle à qui.', services: ['Filtrage et routage inter-VLAN', 'DHCP, DNS', 'VPN'], status: 'planned' },
       lan: { name: 'VLAN 10, LAN', role: 'Le réseau du quotidien : ordinateurs et téléphones de la maison.', services: ['192.168.10.0/24'], status: 'planned' },
       labnet: { name: 'VLAN 20, LAB', role: 'Le bac à sable pour tester, casser et recommencer, isolé du reste.', services: ['192.168.20.0/24', 'Kali Linux', 'Machines de test'], status: 'planned' },
       dmz: { name: 'VLAN 30, DMZ', role: 'Les services exposés, séparés du réseau interne.', services: ['192.168.30.0/24'], status: 'planned' },

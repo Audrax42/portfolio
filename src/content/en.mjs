@@ -44,7 +44,7 @@ export default {
     gargouille: 'A gargoyle on Amiens cathedral, at night',
     portail: 'The portal of Amiens cathedral, at night',
     tour: 'The tower of Jules Verne’s house, Amiens',
-    campanile: 'The bell tower of Saint-Quentin basilica, at night',
+    citadelle: 'Plan of the Doullens citadel, 1660: defence in layers',
     veille: 'Saint-Quentin at night, seen from the basilica gallery',
     facade: 'The façade of Amiens cathedral, at night',
     alicante: 'Alicante, seen from the watchtower of Santa Bárbara castle',
@@ -73,7 +73,7 @@ export default {
         rows: [['Bachelor’s year in Economics, Université de Picardie Jules Verne', '2023–2024']],
       },
       {
-        scene: 'campanile',
+        scene: 'veille',
         title: 'Getting hands-on',
         text:
           'The urge to work with the technology itself took over. During my BTS (a two-year technical degree) I learned networking (DNS, VLANs, routing), Linux, programming and electronics, in theory and in practice. That is where I built Aquatrack.',
@@ -90,7 +90,7 @@ export default {
         rows: [['Full stack developer (internship), Nitsnets, Alicante, Spain', 'May–July 2025']],
       },
       {
-        scene: 'veille',
+        scene: 'citadelle',
         title: 'Learning to defend',
         text:
           'I chose to specialise. Alongside school, I train on TryHackMe (SOC simulator, preparing the SAL1 certification) and HackTheBox. I am discovering SIEM, EDR, log analysis, MITRE ATT&CK, ISO 27001 and NIS2, and I am building my homelab.',
@@ -175,7 +175,7 @@ export default {
       box: { name: 'ISP router', role: 'The connection from the provider, upstream of everything else.', services: [], status: 'done' },
       switch: { name: 'Cisco 2960 switch', role: 'The managed switch that carries the VLAN segmentation.', services: ['VLANs 10, 20, 30, 40', 'Trunk ports to Proxmox'], status: 'done' },
       proxmox: { name: 'Proxmox mini PC', role: 'The main hypervisor. It runs the firewall and the virtual machines.', services: ['OPNsense', 'Wazuh', 'Kali Linux', 'Gitea', 'Vaultwarden', 'Nextcloud', 'Immich'], status: 'next' },
-      opnsense: { name: 'OPNsense', role: 'Firewall and router between the VLANs: it decides who may talk to whom.', services: ['Inter-VLAN filtering', 'Routing', 'Optional VPN'], status: 'planned' },
+      opnsense: { name: 'OPNsense', role: 'A VM on the Proxmox mini PC, trunked to the switch. Firewall and gateway of every VLAN (192.168.x.1): it decides who may talk to whom.', services: ['Inter-VLAN filtering and routing', 'DHCP, DNS', 'VPN'], status: 'planned' },
       lan: { name: 'VLAN 10, LAN', role: 'The everyday network: the household’s computers and phones.', services: ['192.168.10.0/24'], status: 'planned' },
       labnet: { name: 'VLAN 20, LAB', role: 'A sandbox to test, break and start over, isolated from the rest.', services: ['192.168.20.0/24', 'Kali Linux', 'Test machines'], status: 'planned' },
       dmz: { name: 'VLAN 30, DMZ', role: 'Exposed services, kept apart from the internal network.', services: ['192.168.30.0/24'], status: 'planned' },

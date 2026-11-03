@@ -12,8 +12,8 @@ const STAGE = [
   ['gargouille', 'assets/gargouille.jpg', 1600, 1163, '64% 50%'],
   ['portail', 'assets/cathedrale-portail.jpg', 1200, 1668, '50% 40%'],
   ['tour', 'assets/tour-jules-verne.jpg', 1200, 1600, '50% 30%'],
-  ['campanile', 'assets/saint-quentin-campanile.jpg', 1600, 1203, '44% 50%'],
   ['veille', 'assets/saint-quentin-nuit.jpg', 1600, 1067, '38% 50%'],
+  ['citadelle', 'assets/citadelle-doullens-1660.jpg', 1400, 1547, '50% 45%'],
   ['alicante', 'assets/alicante.jpg', 1600, 890, '8% 50%'],
 ];
 
@@ -24,7 +24,7 @@ const CREDITS = [
   ['Broadcom BCM54684D1KFBG on a Cisco Catalyst 2960-S network switch', 'Grape.gay', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Broadcom_BCM54684D1KFBG_on_a_Cisco_Catalyst_2960-S_network_switch.jpg'],
   ['ESP32-CAM', 'Nowforever', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:ESP32-CAM.jpg'],
   ['Vista de Alicante, España, 2014-07-04, DD 49', 'Diego Delso', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:Vista_de_Alicante,_Espa%C3%B1a,_2014-07-04,_DD_49.JPG'],
-  ['Basilique de Saint-Quentin, le campanile la nuit', 'Renhour48', 'CC0', 'https://commons.wikimedia.org/w/index.php?curid=151362120'],
+  ['Plan de la citadelle de Doullens, 1660', 'auteur inconnu', 'domaine public', 'https://commons.wikimedia.org/wiki/File:Plan_de_la_citadelle_de_Doullens_1660.jpg'],
   ['Basilique de Saint-Quentin, le chevet la nuit C', 'Renhour48', 'CC0', 'https://commons.wikimedia.org/w/index.php?curid=151361987'],
   ['Cathédrale d’Amiens, façade de nuit', 'Florestan', 'CC BY 3.0', 'https://commons.wikimedia.org/w/index.php?curid=3551089'],
 ];
