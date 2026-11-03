@@ -1,6 +1,6 @@
 // Turns a content object (src/content/*.mjs) into a full HTML page.
 
-const SITE = 'https://audrax42.github.io/';
+const SITE = 'https://audrax42.github.io/portfolio/';
 
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
