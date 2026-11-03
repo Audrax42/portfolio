@@ -1,0 +1,130 @@
+// Behaviour for the portfolio: stage crossfade, scaling wordmark, torn project titles,
+// the homelab plan, and section entrances. Every part degrades to a readable static page.
+
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wide = window.matchMedia('(min-width: 60.0625rem)');
+
+  // The fixed half changes picture as each part of the story reaches the middle of the screen.
+  const frames = new Map([...document.querySelectorAll('.stage__frame')].map((f) => [f.dataset.scene, f]));
+  const caption = document.querySelector('.stage__caption');
+  const showScene = (key) => {
+    if (!frames.has(key)) return;
+    frames.forEach((f, k) => f.classList.toggle('is-active', k === key));
+    if (caption) caption.textContent = frames.get(key).dataset.caption;
+  };
+  const sceneObserver = new IntersectionObserver(
+    (entries) => entries.forEach((e) => e.isIntersecting && showScene(e.target.dataset.sceneTrigger)),
+    { rootMargin: '-45% 0px -45% 0px' }
+  );
+  document.querySelectorAll('[data-scene-trigger]').forEach((el) => sceneObserver.observe(el));
+
+  // Scroll-linked motion: the wordmark settles as the first screen leaves,
+  // and each project title tears at the seam until its project is centred.
+  const wordmark = document.querySelector('.wordmark');
+  const tracks = [...document.querySelectorAll('.project__track')];
+  let ticking = false;
+
+  const update = () => {
+    ticking = false;
+    const vh = window.innerHeight;
+    if (wordmark && wide.matches && !reduce) {
+      const p = Math.min(1, Math.max(0, window.scrollY / vh));
+      wordmark.style.scale = String(1 - 0.07 * p);
+    }
+    tracks.forEach((track) => {
+      const stage = track.firstElementChild;
+      if (reduce) return stage.style.setProperty('--d', '0');
+      const r = track.getBoundingClientRect();
+      const span = r.height - vh;
+      const p = Math.min(1, Math.max(0, -r.top / span));
+      // Aligned through the middle of the hold, torn at the ends.
+      const d = p < 0.3 ? (p - 0.3) / 0.3 : p > 0.7 ? (p - 0.7) / 0.3 : 0;
+      stage.style.setProperty('--d', d.toFixed(4));
+    });
+  };
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+
+  // The homelab plan: choose a piece, read its role, services and status.
+  const data = JSON.parse(document.getElementById('lab-data')?.textContent || 'null');
+  const detail = document.getElementById('lab-detail');
+  if (data && detail) {
+    const field = (name) => detail.querySelector(`[data-field="${name}"]`);
+    const buttons = document.querySelectorAll('.lab button.node');
+    buttons.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const n = data.nodes[btn.dataset.node];
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        const status = field('status');
+        status.textContent = data.status[n.status];
+        status.className = `lab__status lab__status--${n.status}`;
+        field('name').textContent = n.name;
+        field('role').textContent = n.role;
+        const list = field('services');
+        list.replaceChildren(...n.services.map((s) => Object.assign(document.createElement('li'), { textContent: s })));
+        if (!reduce) {
+          detail.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], {
+            duration: 420,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          });
+        }
+      })
+    );
+  }
+
+  // Entrances: the parts of each section arrive in reading order, once. Nothing is hidden up front:
+  // the animation starts just before an element scrolls into view and fills backwards from there.
+  if (!reduce && 'IntersectionObserver' in window && Element.prototype.animate) {
+    const groups = [
+      '.about > *',
+      '.chapter > *, .chapter .rows li',
+      '.path .section-title',
+      '.project__body > *',
+      '.work__title',
+      '.lab__head > *, .lab__detail, .lab__roadmap, .lab__body > .map .node',
+      '.menu__title, .menu__group h3, .menu__item',
+      '.names .section-title, .names__cols li',
+      '.contact > *',
+      '.foot__menu li, .foot__blocks > *',
+    ];
+    const items = [];
+    groups.forEach((sel) => {
+      let i = 0;
+      let parent = null;
+      document.querySelectorAll(sel).forEach((el) => {
+        const p = el.closest('section, .chapter, .project, footer, .menu__group');
+        if (p !== parent) {
+          parent = p;
+          i = 0;
+        }
+        el.dataset.i = Math.min(i++, 6);
+        items.push(el);
+      });
+    });
+    const below = (el) => el.getBoundingClientRect().top > window.innerHeight;
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          io.unobserve(e.target);
+          e.target.animate(
+            [{ opacity: 0.2, transform: 'translateY(26px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 700, delay: e.target.dataset.i * 60, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'backwards' }
+          );
+        }),
+      { rootMargin: '0px 0px 25% 0px' }
+    );
+    // Only what still lies below the first screen gets an entrance.
+    items.filter(below).forEach((el) => io.observe(el));
+    items.length = 0;
+    items.forEach((el) => io.observe(el));
+  }
+})();

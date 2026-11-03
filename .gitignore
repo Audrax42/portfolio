@@ -1,0 +1,13 @@
+# Originals of the photographs (the site uses the resized copies in assets/)
+_sources/
+
+# Working files of the taste skill and of Claude Code
+.taste-skill/
+.agents/
+.claude/
+
+# Content drafts
+contenu/
+
+# Taste skill install record
+skills-lock.json
