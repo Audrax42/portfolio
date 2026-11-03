@@ -44,7 +44,9 @@ export default {
     gargouille: 'Gargouille de la cathédrale d’Amiens, la nuit',
     portail: 'Portail de la cathédrale d’Amiens, la nuit',
     tour: 'La tour de la maison de Jules Verne, Amiens',
-    cisco: 'Carte d’un switch Cisco Catalyst 2960',
+    campanile: 'Le campanile de la basilique de Saint-Quentin, la nuit',
+    veille: 'Saint-Quentin la nuit, vue depuis la galerie de la basilique',
+    facade: 'La façade de la cathédrale d’Amiens, la nuit',
     alicante: 'Alicante, vue depuis la garita du château Santa Bárbara',
   },
 
@@ -71,7 +73,7 @@ export default {
         rows: [['Licence d’économie, Université de Picardie Jules Verne', '2023–2024']],
       },
       {
-        scene: 'cisco',
+        scene: 'campanile',
         title: 'Passer au concret',
         text:
           'Le besoin de toucher à la technique a pris le dessus. En BTS, j’ai découvert les réseaux (DNS, VLAN, routage), Linux, la programmation et l’électronique, en théorie comme en pratique. C’est là que j’ai réalisé Aquatrack.',
@@ -88,7 +90,7 @@ export default {
         rows: [['Développeur full stack (stage), Nitsnets, Alicante', 'mai–juillet 2025']],
       },
       {
-        scene: 'portail',
+        scene: 'veille',
         title: 'Apprendre à défendre',
         text:
           'J’ai choisi de me spécialiser. En parallèle de l’école, je m’entraîne sur TryHackMe (simulateur SOC, certification SAL1 en préparation) et HackTheBox. Je découvre les SIEM, les EDR, l’analyse de journaux, MITRE ATT&CK, ISO 27001 et NIS2, et je construis mon homelab.',

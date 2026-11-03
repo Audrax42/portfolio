@@ -44,7 +44,9 @@ export default {
     gargouille: 'A gargoyle on Amiens cathedral, at night',
     portail: 'The portal of Amiens cathedral, at night',
     tour: 'The tower of Jules Verne’s house, Amiens',
-    cisco: 'Circuit board of a Cisco Catalyst 2960 switch',
+    campanile: 'The bell tower of Saint-Quentin basilica, at night',
+    veille: 'Saint-Quentin at night, seen from the basilica gallery',
+    facade: 'The façade of Amiens cathedral, at night',
     alicante: 'Alicante, seen from the watchtower of Santa Bárbara castle',
   },
 
@@ -71,7 +73,7 @@ export default {
         rows: [['Bachelor’s year in Economics, Université de Picardie Jules Verne', '2023–2024']],
       },
       {
-        scene: 'cisco',
+        scene: 'campanile',
         title: 'Getting hands-on',
         text:
           'The urge to work with the technology itself took over. During my BTS (a two-year technical degree) I learned networking (DNS, VLANs, routing), Linux, programming and electronics, in theory and in practice. That is where I built Aquatrack.',
@@ -88,7 +90,7 @@ export default {
         rows: [['Full stack developer (internship), Nitsnets, Alicante, Spain', 'May–July 2025']],
       },
       {
-        scene: 'portail',
+        scene: 'veille',
         title: 'Learning to defend',
         text:
           'I chose to specialise. Alongside school, I train on TryHackMe (SOC simulator, preparing the SAL1 certification) and HackTheBox. I am discovering SIEM, EDR, log analysis, MITRE ATT&CK, ISO 27001 and NIS2, and I am building my homelab.',

@@ -12,7 +12,8 @@ const STAGE = [
   ['gargouille', 'assets/gargouille.jpg', 1600, 1163, '64% 50%'],
   ['portail', 'assets/cathedrale-portail.jpg', 1200, 1668, '50% 40%'],
   ['tour', 'assets/tour-jules-verne.jpg', 1200, 1600, '50% 30%'],
-  ['cisco', 'assets/cisco-2960.jpg', 1600, 1200, '30% 50%'],
+  ['campanile', 'assets/saint-quentin-campanile.jpg', 1600, 1203, '44% 50%'],
+  ['veille', 'assets/saint-quentin-nuit.jpg', 1600, 1067, '38% 50%'],
   ['alicante', 'assets/alicante.jpg', 1600, 890, '8% 50%'],
 ];
 
@@ -23,6 +24,9 @@ const CREDITS = [
   ['Broadcom BCM54684D1KFBG on a Cisco Catalyst 2960-S network switch', 'Grape.gay', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Broadcom_BCM54684D1KFBG_on_a_Cisco_Catalyst_2960-S_network_switch.jpg'],
   ['ESP32-CAM', 'Nowforever', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:ESP32-CAM.jpg'],
   ['Vista de Alicante, España, 2014-07-04, DD 49', 'Diego Delso', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:Vista_de_Alicante,_Espa%C3%B1a,_2014-07-04,_DD_49.JPG'],
+  ['Basilique de Saint-Quentin, le campanile la nuit', 'Renhour48', 'CC0', 'https://commons.wikimedia.org/w/index.php?curid=151362120'],
+  ['Basilique de Saint-Quentin, le chevet la nuit C', 'Renhour48', 'CC0', 'https://commons.wikimedia.org/w/index.php?curid=151361987'],
+  ['Cathédrale d’Amiens, façade de nuit', 'Florestan', 'CC BY 3.0', 'https://commons.wikimedia.org/w/index.php?curid=3551089'],
 ];
 
 // Homelab plan: positions in a 1000 × 640 drawing.
@@ -30,14 +34,14 @@ const NODES = {
   internet: [500, 50],
   box: [500, 150],
   switch: [500, 262],
-  proxmox: [290, 380],
-  oldpc: [660, 380],
+  proxmox: [300, 380],
+  oldpc: [665, 380],
   pi: [885, 380],
-  opnsense: [290, 482],
+  opnsense: [300, 482],
   lan: [75, 590],
-  labnet: [218, 590],
-  dmz: [361, 590],
-  admin: [510, 590],
+  labnet: [225, 590],
+  dmz: [375, 590],
+  admin: [525, 590],
 };
 const LINKS = [
   ['internet', 'box'], ['box', 'switch'], ['switch', 'proxmox'], ['switch', 'oldpc'], ['switch', 'pi'],
@@ -57,7 +61,7 @@ function labMap(c, { interactive }) {
       const style = `left:${x / 10}%;top:${(y / 640) * 100}%`;
       const cls = `node node--${n.status}`;
       return interactive
-        ? `<button type="button" class="${cls}" style="${style}" data-node="${id}" aria-pressed="${id === 'switch'}" aria-controls="lab-detail">${esc(n.name)}</button>`
+        ? `<button type="button" class="${cls}" style="${style}" data-node="${id}" aria-pressed="${id === 'switch'}" aria-controls="lab-detail">${esc(n.name).replace(', ', '<br>')}</button>`
         : `<span class="${cls}" style="${style}">${esc(n.name)}</span>`;
     })
     .join('');
@@ -292,7 +296,6 @@ export function render(c) {
 <section class="contact" id="contact" aria-labelledby="contact-title">
   <h2 id="contact-title" class="visually-hidden">${esc(c.contact.title)}</h2>
   <p class="contact__sentence">${esc(c.contact.sentence)}</p>
-  <figure class="contact__photo">${img({ src: 'assets/cathedrale-portail.jpg', w: 1200, h: 1668, alt: c.stage.portail, pos: '50% 62%' }, base)}</figure>
   <div class="contact__links">
     <p class="contact__question">${esc(c.contact.question)}</p>
     <a href="${mail}">${esc(c.contact.email)}</a>
@@ -303,7 +306,7 @@ export function render(c) {
 </main>
 
 <footer class="foot">
-  <figure class="foot__photo">${img({ src: 'assets/gargouille.jpg', w: 1600, h: 1163, alt: c.contact.photoAlt, pos: '74% 58%' }, base)}</figure>
+  <figure class="foot__photo">${img({ src: 'assets/cathedrale-facade.jpg', w: 1600, h: 1190, alt: c.stage.facade, pos: '50% 40%' }, base)}</figure>
   <div class="foot__side">
     <p class="foot__mark">${esc(c.hero.name)}</p>
     <ul class="foot__menu">

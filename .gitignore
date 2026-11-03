@@ -11,3 +11,6 @@ contenu/
 
 # Taste skill install record
 skills-lock.json
+
+# Candidate pictures not used
+_cand/
