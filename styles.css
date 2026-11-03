@@ -145,6 +145,7 @@ p { text-wrap: pretty; }
 .devices__desktop { width: 86% !important; max-height: none !important; }
 .devices__phone { position: absolute; right: 0; bottom: 0; width: 27% !important; max-height: none !important; border: 6px solid var(--bg); }
 
+.shot--compare { width: 100%; }
 .compare { position: relative; width: min(100%, calc(84svh * 1200 / 1668)); aspect-ratio: 1200 / 1668; overflow: hidden; touch-action: pan-y; }
 .compare img { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: cover; }
 .compare__after { clip-path: inset(0 0 0 var(--x)); }
