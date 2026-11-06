@@ -20,19 +20,13 @@ La commande régénère `index.html` et `en/index.html`. Il suffit ensuite de pu
 | `main.js` | Image fixe qui change, carte du homelab, animations |
 | `assets/` | Photos, CV en PDF, favicon |
 
-## Publier sur GitHub Pages
+## Publication
 
-1. Le dépôt s’appelle **`portfolio`** sur le compte `Audrax42`.
-2. Pousser ce dossier sur la branche `main`.
-3. Dans *Settings → Pages*, choisir *Deploy from a branch*, branche `main`, dossier `/ (root)`.
+Le site est publié par GitHub Pages depuis la branche `main` de ce dépôt (dossier racine), sur le domaine **https://axeldenis.me** (fichier `CNAME`).
 
-Le site est alors en ligne à l'adresse `https://audrax42.github.io/portfolio/`.
-
-## Passer au domaine axeldenis.fr
-
-1. Chez le registraire, créer pour `axeldenis.fr` quatre enregistrements `A` vers `185.199.108.153`, `185.199.109.153`, `185.199.110.153` et `185.199.111.153`, plus un `CNAME` pour `www` vers `audrax42.github.io` (sans `/portfolio` : GitHub sait quel dépôt servir grâce au domaine personnalisé).
-2. Dans *Settings → Pages → Custom domain*, saisir `axeldenis.fr` (GitHub crée le fichier `CNAME`), puis cocher *Enforce HTTPS*.
-3. Dans `src/render.mjs`, remplacer `SITE` par `https://axeldenis.fr/` et relancer `node build.mjs`, pour que les liens canoniques et l'aperçu des réseaux sociaux pointent vers le nouveau domaine.
+- DNS chez Namecheap : enregistrements `A` de `axeldenis.me` vers `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, et `www` en `CNAME` vers `audrax42.github.io`.
+- Dans *Settings → Pages*, le domaine personnalisé est `axeldenis.me` et *Enforce HTTPS* est coché.
+- L'adresse `SITE` de `src/render.mjs` vaut `https://axeldenis.me/` : elle sert aux liens canoniques et à l'aperçu sur les réseaux sociaux.
 
 ## Crédits photographiques
 
