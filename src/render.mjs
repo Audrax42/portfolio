@@ -1,6 +1,22 @@
 // Turns a content object (src/content/*.mjs) into a full HTML page.
 
-const SITE = 'https://axeldenis.me/';
+import { createHash } from 'node:crypto';
+
+export const SITE = 'https://axeldenis.me/';
+
+// The one inline script of the page; its hash goes into the content security policy.
+const INLINE_JS = "document.documentElement.classList.add('js')";
+const CSP = [
+  "default-src 'self'",
+  `script-src 'self' 'sha256-${createHash('sha256').update(INLINE_JS).digest('base64')}'`,
+  "style-src 'self'",
+  "style-src-attr 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'none'",
+].join('; ');
 
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -74,8 +90,13 @@ function labMap(c, { interactive }) {
     </div>`;
 }
 
-function img({ src, w, h, alt, pos, lazy = true, cls = '' }, base) {
-  return `<img${cls ? ` class="${cls}"` : ''} src="${base}${src}" width="${w}" height="${h}" alt="${esc(alt)}"${pos ? ` style="object-position:${pos}"` : ''}${lazy ? ' loading="lazy"' : ''} decoding="async">`;
+// Photographs are served as AVIF, then WebP, with the JPEG as a fallback.
+// `modern: false` keeps a plain JPEG (the compressor demo compares real JPEG files).
+function img({ src, w, h, alt, pos, lazy = true, cls = '', modern = true }, base) {
+  const tag = `<img${cls ? ` class="${cls}"` : ''} src="${base}${src}" width="${w}" height="${h}" alt="${esc(alt)}"${pos ? ` style="object-position:${pos}"` : ''}${lazy ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">`;
+  if (!modern) return tag;
+  const stem = base + src.replace(/\.jpg$/, '');
+  return `<picture><source srcset="${stem}.avif" type="image/avif"><source srcset="${stem}.webp" type="image/webp">${tag}</picture>`;
 }
 
 // One picture per project, shown whole: a photograph, a site on two screens, or a before/after slider.
@@ -92,8 +113,8 @@ function media(m, base) {
   if (m.kind === 'compare') {
     return `<figure class="shot shot--compare">
       <div class="compare" style="--x: 50%">
-        ${img({ src: m.before.src, w: m.w, h: m.h, alt: m.alt, cls: 'compare__before' }, base)}
-        ${img({ src: m.after.src, w: m.w, h: m.h, alt: '', cls: 'compare__after' }, base)}
+        ${img({ src: m.before.src, w: m.w, h: m.h, alt: m.alt, cls: 'compare__before', modern: false }, base)}
+        ${img({ src: m.after.src, w: m.w, h: m.h, alt: '', cls: 'compare__after', modern: false }, base)}
         <span class="compare__label compare__label--before">${esc(m.before.label)}</span>
         <span class="compare__label compare__label--after">${esc(m.after.label)}</span>
         <span class="compare__handle" aria-hidden="true"></span>
@@ -194,6 +215,8 @@ export function render(c) {
 <title>${esc(c.meta.title)}</title>
 <meta name="description" content="${esc(c.meta.description)}">
 <meta name="theme-color" content="#0c0a08">
+<meta http-equiv="Content-Security-Policy" content="${CSP}">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="${url}">
 <link rel="alternate" hreflang="${c.lang}" href="${url}">
 <link rel="alternate" hreflang="${c.lang === 'fr' ? 'en' : 'fr'}" href="${otherUrl}">
@@ -203,13 +226,29 @@ export function render(c) {
 <meta property="og:description" content="${esc(c.meta.description)}">
 <meta property="og:url" content="${url}">
 <meta property="og:locale" content="${c.locale}">
-<meta property="og:image" content="${SITE}assets/gargouille.jpg">
+<meta property="og:image" content="${SITE}assets/share-${c.lang}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,500;1,400&family=Imbue:wght@400&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="${base}assets/apple-touch-icon.png">
+<link rel="preload" href="${base}assets/fonts/albert-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${base}assets/fonts/imbue.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${base}styles.css">
-<script>document.documentElement.classList.add('js')</script>
+<script>${INLINE_JS}</script>
+<script type="application/ld+json">${JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: c.hero.name,
+  url: SITE,
+  jobTitle: c.about.role,
+  description: c.meta.description,
+  email: mail,
+  address: { '@type': 'PostalAddress', addressLocality: 'Amiens', addressCountry: 'FR' },
+  alumniOf: 'École d’Ingénieurs Jules Verne',
+  knowsLanguage: ['fr', 'en', 'es'],
+  sameAs: [c.contact.linkedin.href, 'https://github.com/Audrax42', 'https://tryhackme.com/p/axel802401'],
+}).replace(/</g, '\\u003c')}</script>
 </head>
 <body>
 <a class="skip" href="#main">${esc(c.nav.skip)}</a>

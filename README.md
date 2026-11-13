@@ -28,6 +28,13 @@ Le site est publié par GitHub Pages depuis la branche `main` de ce dépôt (dos
 - Dans *Settings → Pages*, le domaine personnalisé est `axeldenis.me` et *Enforce HTTPS* est coché.
 - L'adresse `SITE` de `src/render.mjs` vaut `https://axeldenis.me/` : elle sert aux liens canoniques et à l'aperçu sur les réseaux sociaux.
 
+## Entretien
+
+- `node build.mjs` régénère aussi `404.html`, `sitemap.xml`, `robots.txt` et `.well-known/security.txt`.
+- La date `Expires` de `security.txt` (dans `build.mjs`) est à renouveler une fois par an.
+- Chaque photo existe en `.avif`, `.webp` et `.jpg`. Pour une nouvelle photo, fournir les trois formats (les deux images du compresseur restent en JPEG, c'est la démonstration).
+- Les polices sont dans `assets/fonts/` (licence SIL Open Font). Le site ne charge rien depuis un serveur tiers, et sa politique de sécurité du contenu (CSP) l'interdit.
+
 ## Crédits photographiques
 
 Les photographies proviennent de Wikimedia Commons, sous licences CC BY et CC BY-SA. Elles sont créditées dans le pied de page du site. Ces images ont été redimensionnées et recadrées pour le site.

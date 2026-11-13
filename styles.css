@@ -2,6 +2,11 @@
    Direction "split stage" (taste skill, seed 1309929159): warm black, gold, Imbue and Albert Sans.
    The left half holds the night watchers of Amiens; the right half tells the story. */
 
+/* Typefaces, served from this domain (SIL Open Font Licence). */
+@font-face { font-family: 'Albert Sans'; font-style: normal; font-weight: 400 500; font-display: swap; src: url('assets/fonts/albert-sans.woff2') format('woff2'); }
+@font-face { font-family: 'Albert Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url('assets/fonts/albert-sans-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Imbue'; font-style: normal; font-weight: 400; font-display: swap; src: url('assets/fonts/imbue.woff2') format('woff2'); }
+
 :root {
   --bg: #0c0a08;
   --surface: #181512;
@@ -44,6 +49,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f
 h1, h2, h3, h4, p, figure, ul, ol, dl, dd { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 img, svg { display: block; max-width: 100%; }
+picture { display: contents; }
 img { height: auto; background: var(--surface); }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 a { color: inherit; }
@@ -257,6 +263,10 @@ button.node[aria-pressed='true'] { background: var(--accent); color: var(--accen
 .foot__label { color: var(--muted); }
 .foot__credits { margin-top: auto; padding-top: 3rem; font-size: var(--step-small); color: var(--muted); max-width: 70ch; }
 .foot__legal { margin-top: 0.75rem; font-size: var(--step-small); color: var(--muted); }
+
+/* ---------- not found ---------- */
+.lost { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; padding: var(--margin); max-width: 44rem; }
+.lost p:last-child { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; margin-top: 1rem; }
 
 /* ---------- motion (content stays visible without JavaScript) ---------- */
 @media (prefers-reduced-motion: no-preference) {
