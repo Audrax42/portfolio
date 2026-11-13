@@ -43,11 +43,11 @@ export default {
   stage: {
     gargouille: 'Gargouille de la cathédrale d’Amiens, la nuit',
     portail: 'Portail de la cathédrale d’Amiens, la nuit',
-    tour: 'La tour de la maison de Jules Verne, Amiens',
+    tour: 'La tour Perret d’Amiens, la nuit',
     citadelle: 'Plan de la citadelle de Doullens, 1660 : une défense en couches',
     veille: 'Saint-Quentin la nuit, vue depuis la galerie de la basilique',
     facade: 'La façade de la cathédrale d’Amiens, la nuit',
-    alicante: 'Alicante, vue depuis la garita du château Santa Bárbara',
+    alicante: 'Le port d’Alicante et le château Santa Bárbara, la nuit',
   },
 
   about: {
@@ -164,6 +164,7 @@ export default {
   },
 
   lab: {
+    zone: 'Virtualisé sur Proxmox',
     title: 'Le homelab, pièce par pièce',
     intro:
       'Voici le plan réseau que je suis en train de construire. Choisis un élément pour voir son rôle, les services qu’il héberge et où il en est.',

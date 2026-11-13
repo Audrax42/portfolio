@@ -43,11 +43,11 @@ export default {
   stage: {
     gargouille: 'A gargoyle on Amiens cathedral, at night',
     portail: 'The portal of Amiens cathedral, at night',
-    tour: 'The tower of Jules Verne’s house, Amiens',
+    tour: 'The Perret tower in Amiens, at night',
     citadelle: 'Plan of the Doullens citadel, 1660: defence in layers',
     veille: 'Saint-Quentin at night, seen from the basilica gallery',
     facade: 'The façade of Amiens cathedral, at night',
-    alicante: 'Alicante, seen from the watchtower of Santa Bárbara castle',
+    alicante: 'The port of Alicante and Santa Bárbara castle, at night',
   },
 
   about: {
@@ -164,6 +164,7 @@ export default {
   },
 
   lab: {
+    zone: 'Virtualised on Proxmox',
     title: 'The homelab, piece by piece',
     intro:
       'This is the network I am building. Pick a piece to see its role, the services it hosts and how far along it is.',

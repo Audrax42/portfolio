@@ -11,37 +11,39 @@ const rich = (s) => esc(s).replace(/==(.+?)==/g, '<mark>$1</mark>');
 const STAGE = [
   ['gargouille', 'assets/gargouille.jpg', 1600, 1163, '64% 50%'],
   ['portail', 'assets/cathedrale-portail.jpg', 1200, 1668, '50% 40%'],
-  ['tour', 'assets/tour-jules-verne.jpg', 1200, 1600, '50% 30%'],
+  ['tour', 'assets/tour-perret-nuit.jpg', 1200, 1775, '50% 35%'],
   ['veille', 'assets/saint-quentin-nuit.jpg', 1600, 1067, '38% 50%'],
   ['citadelle', 'assets/citadelle-doullens-1660.jpg', 1400, 1547, '50% 45%'],
-  ['alicante', 'assets/alicante.jpg', 1600, 890, '8% 50%'],
+  ['alicante', 'assets/alicante-nuit.jpg', 1600, 1060, '14% 50%'],
 ];
+const SCENES = Object.fromEntries(STAGE.map(([key, ...rest]) => [key, rest]));
 
 const CREDITS = [
   ['Gargouille facade de nuit', 'Eusebius', 'CC BY 3.0', 'https://commons.wikimedia.org/wiki/File:Gargouille_facade_de_nuit.jpg'],
   ['Amiens Cathédrale Nuit 190908 2', 'Vassil', 'CC BY 3.0', 'https://commons.wikimedia.org/wiki/File:Amiens_Cath%C3%A9drale_Nuit_190908_2.jpg'],
-  ['Amiens, tour de la maison de Jules Verne', 'Pierre André', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Amiens.-_Tour_de_la_maison_de_jules_Verne.jpg'],
+  ['AmiensTourPerretNuit', 'Mussklprozz', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:AmiensTourPerretNuit.jpg'],
   ['Broadcom BCM54684D1KFBG on a Cisco Catalyst 2960-S network switch', 'Grape.gay', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:Broadcom_BCM54684D1KFBG_on_a_Cisco_Catalyst_2960-S_network_switch.jpg'],
   ['ESP32-CAM', 'Nowforever', 'CC BY-SA 4.0', 'https://commons.wikimedia.org/wiki/File:ESP32-CAM.jpg'],
-  ['Vista de Alicante, España, 2014-07-04, DD 49', 'Diego Delso', 'CC BY-SA 3.0', 'https://commons.wikimedia.org/wiki/File:Vista_de_Alicante,_Espa%C3%B1a,_2014-07-04,_DD_49.JPG'],
+  ['Puerto de Alicante, noche', 'Jesús Alenda', 'CC BY 2.0', 'https://commons.wikimedia.org/wiki/File:Puerto_de_Alicante_-_noche.jpg'],
   ['Plan de la citadelle de Doullens, 1660', 'auteur inconnu', 'domaine public', 'https://commons.wikimedia.org/wiki/File:Plan_de_la_citadelle_de_Doullens_1660.jpg'],
   ['Basilique de Saint-Quentin, le chevet la nuit C', 'Renhour48', 'CC0', 'https://commons.wikimedia.org/w/index.php?curid=151361987'],
   ['Cathédrale d’Amiens, façade de nuit', 'Florestan', 'CC BY 3.0', 'https://commons.wikimedia.org/w/index.php?curid=3551089'],
 ];
 
-// Homelab plan: positions in a 1000 × 640 drawing.
+// Homelab plan: [x, y, depth] in a 1000 × 640 drawing, listed in tree order
+// (the depth indents the plan when it is shown as a list on a phone).
 const NODES = {
-  internet: [500, 50],
-  box: [500, 150],
-  switch: [500, 262],
-  proxmox: [300, 380],
-  oldpc: [665, 380],
-  pi: [885, 380],
-  opnsense: [300, 482],
-  lan: [75, 590],
-  labnet: [225, 590],
-  dmz: [375, 590],
-  admin: [525, 590],
+  internet: [500, 50, 0],
+  box: [500, 150, 1],
+  switch: [500, 262, 2],
+  proxmox: [275, 380, 3],
+  opnsense: [275, 482, 4],
+  lan: [80, 590, 5],
+  labnet: [210, 590, 5],
+  dmz: [340, 590, 5],
+  admin: [470, 590, 5],
+  oldpc: [665, 380, 3],
+  pi: [870, 380, 3],
 };
 const LINKS = [
   ['internet', 'box'], ['box', 'switch'], ['switch', 'proxmox'], ['switch', 'oldpc'], ['switch', 'pi'],
@@ -56,9 +58,9 @@ function labMap(c, { interactive }) {
     return `<path d="M${x1} ${y1} V${ym} H${x2} V${y2}" />`;
   }).join('');
   const nodes = Object.entries(NODES)
-    .map(([id, [x, y]]) => {
+    .map(([id, [x, y, depth]]) => {
       const n = c.lab.nodes[id];
-      const style = `left:${x / 10}%;top:${(y / 640) * 100}%`;
+      const style = `left:${x / 10}%;top:${(y / 640) * 100}%;--depth:${depth}`;
       const cls = `node node--${n.status}`;
       return interactive
         ? `<button type="button" class="${cls}" style="${style}" data-node="${id}" aria-pressed="${id === 'switch'}" aria-controls="lab-detail">${esc(n.name).replace(', ', '<br>')}</button>`
@@ -66,6 +68,7 @@ function labMap(c, { interactive }) {
     })
     .join('');
   return `<div class="map${interactive ? '' : ' map--still'}" data-ui${interactive ? '' : ' aria-hidden="true"'}>
+      <p class="map__zone"><span>${esc(c.lab.zone)}</span></p>
       <svg class="map__wires" viewBox="0 0 1000 640" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>
       ${nodes}
     </div>`;
@@ -126,6 +129,11 @@ export function render(c) {
   const chapters = c.path.chapters
     .map(
       (ch) => `<div class="chapter" data-scene-trigger="${ch.scene}">
+          ${
+            ch.scene === 'gargouille'
+              ? ''
+              : `<figure class="chapter__photo">${img({ src: SCENES[ch.scene][0], w: SCENES[ch.scene][1], h: SCENES[ch.scene][2], alt: c.stage[ch.scene], pos: SCENES[ch.scene][3] }, base)}</figure>`
+          }
           <h3 class="chapter__title">${esc(ch.title)}</h3>
           <p class="chapter__text">${esc(ch.text)}</p>
           <ul class="rows">${ch.rows
@@ -137,7 +145,7 @@ export function render(c) {
 
   const projects = c.work.projects
     .map(
-      (p) => `<article class="project project--${p.media.kind}" id="project-${p.id}" aria-labelledby="t-${p.id}">
+      (p) => `<article class="project project--${p.media.kind}${p.media.kind === 'compare' || p.media.h > p.media.w ? ' project--tall' : ''}" id="project-${p.id}" aria-labelledby="t-${p.id}">
         <div class="project__media">${media(p.media, base)}</div>
         <div class="project__text">
           <h3 class="project__title" id="t-${p.id}">${esc(p.title)}</h3>
@@ -208,7 +216,8 @@ export function render(c) {
 
 <header class="bar">
   <a class="bar__mark" href="#top">${esc(c.hero.name)}</a>
-  <nav class="bar__nav" aria-label="${esc(c.nav.menu)}">
+  <button class="bar__toggle" type="button" aria-expanded="false" aria-controls="nav">${esc(c.nav.menu)}</button>
+  <nav class="bar__nav" id="nav" aria-label="${esc(c.nav.menu)}">
     <ul>
       ${navItems.map(([id, label]) => `<li><a href="#${id}">${esc(label)}</a></li>`).join('')}
       <li><a href="${c.switchHref}" hreflang="${c.lang === 'fr' ? 'en' : 'fr'}" lang="${c.lang === 'fr' ? 'en' : 'fr'}" aria-label="${esc(c.switchLabel)}">${esc(c.switchShort)}</a></li>
@@ -284,7 +293,7 @@ export function render(c) {
 <section class="skills" id="skills" aria-labelledby="skills-title">
   <div class="menu">
     <h2 id="skills-title" class="section-title menu__title">${esc(c.skills.title)}</h2>
-    ${skills}
+    <div class="menu__groups">${skills}</div>
   </div>
 </section>
 

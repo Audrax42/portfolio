@@ -1,5 +1,5 @@
-// Behaviour for the portfolio: stage crossfade, scaling wordmark, torn project titles,
-// the homelab plan, and section entrances. Every part degrades to a readable static page.
+// Behaviour for the portfolio: stage crossfade, top bar, scaling wordmark, the compressor demo,
+// the homelab plan, and list entrances. Every part degrades to a readable static page.
 
 (() => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -21,10 +21,20 @@
 
   // Scroll-linked motion: the wordmark settles as the first screen leaves.
   const wordmark = document.querySelector('.wordmark');
+  const bar = document.querySelector('.bar');
+  const toggle = document.querySelector('.bar__toggle');
   let ticking = false;
+  let lastY = window.scrollY;
 
   const update = () => {
     ticking = false;
+    // The bar steps aside while reading down and returns as soon as the page moves up.
+    const y = window.scrollY;
+    if (bar) {
+      bar.classList.toggle('is-scrolled', y > 40);
+      if (!bar.classList.contains('is-open') && Math.abs(y - lastY) > 6) bar.classList.toggle('is-hidden', y > lastY && y > 200);
+    }
+    lastY = y;
     if (wordmark && wide.matches && !reduce) {
       const p = Math.min(1, Math.max(0, window.scrollY / window.innerHeight));
       wordmark.style.scale = String(1 - 0.07 * p);
@@ -39,6 +49,17 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   update();
+
+  // The phone menu opens under the bar and closes once a link is chosen.
+  if (bar && toggle) {
+    const setOpen = (open) => {
+      bar.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+    toggle.addEventListener('click', () => setOpen(!bar.classList.contains('is-open')));
+    bar.querySelectorAll('.bar__nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+  }
 
   // The compressor demo: drag to compare the original with the compressed photo.
   document.querySelectorAll('.compare').forEach((box) => {
@@ -113,7 +134,5 @@
     );
     // Only what still lies below the first screen gets an entrance.
     items.filter(below).forEach((el) => io.observe(el));
-    items.length = 0;
-    items.forEach((el) => io.observe(el));
   }
 })();
