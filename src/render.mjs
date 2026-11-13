@@ -1,15 +1,17 @@
 // Turns a content object (src/content/*.mjs) into a full HTML page.
 
 import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 
 export const SITE = 'https://axeldenis.me/';
 
 // The one inline script of the page; its hash goes into the content security policy.
 const INLINE_JS = "document.documentElement.classList.add('js')";
-const CSP = [
+const sha = (text) => `'sha256-${createHash('sha256').update(text).digest('base64')}'`;
+const csp = (css) => [
   "default-src 'self'",
-  `script-src 'self' 'sha256-${createHash('sha256').update(INLINE_JS).digest('base64')}'`,
-  "style-src 'self'",
+  `script-src 'self' ${sha(INLINE_JS)}`,
+  `style-src 'self' ${sha(css)}`,
   "style-src-attr 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self'",
@@ -92,11 +94,14 @@ function labMap(c, { interactive }) {
 
 // Photographs are served as AVIF, then WebP, with the JPEG as a fallback.
 // `modern: false` keeps a plain JPEG (the compressor demo compares real JPEG files).
-function img({ src, w, h, alt, pos, lazy = true, cls = '', modern = true }, base) {
+// Photographs wider than 800px also exist in an 800px version; `sizes` tells the browser
+// how wide the picture is drawn, so a phone does not download the large file.
+function img({ src, w, h, alt, pos, lazy = true, cls = '', modern = true, sizes = '100vw' }, base) {
   const tag = `<img${cls ? ` class="${cls}"` : ''} src="${base}${src}" width="${w}" height="${h}" alt="${esc(alt)}"${pos ? ` style="object-position:${pos}"` : ''}${lazy ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async">`;
   if (!modern) return tag;
   const stem = base + src.replace(/\.jpg$/, '');
-  return `<picture><source srcset="${stem}.avif" type="image/avif"><source srcset="${stem}.webp" type="image/webp">${tag}</picture>`;
+  const set = (ext) => (w > 800 ? `srcset="${stem}-800.${ext} 800w, ${stem}.${ext} ${w}w" sizes="${sizes}"` : `srcset="${stem}.${ext}"`);
+  return `<picture><source ${set('avif')} type="image/avif"><source ${set('webp')} type="image/webp">${tag}</picture>`;
 }
 
 // One picture per project, shown whole: a photograph, a site on two screens, or a before/after slider.
@@ -104,7 +109,7 @@ function media(m, base) {
   if (m.kind === 'devices') {
     return `<figure class="shot shot--devices">
       <div class="devices">
-        ${img({ ...m.desktop, cls: 'devices__desktop' }, base)}
+        ${img({ ...m.desktop, cls: 'devices__desktop', sizes: '(max-width: 60rem) 86vw, 48vw' }, base)}
         ${img({ ...m.phone, cls: 'devices__phone' }, base)}
       </div>
       <figcaption>${esc(m.caption)}</figcaption>
@@ -123,7 +128,7 @@ function media(m, base) {
       <figcaption>${esc(m.caption)}</figcaption>
     </figure>`;
   }
-  return `<figure class="shot">${img({ ...m }, base)}<figcaption>${esc(m.caption)}</figcaption></figure>`;
+  return `<figure class="shot">${img({ ...m, sizes: m.h > m.w ? '(max-width: 60rem) 100vw, 40vw' : '(max-width: 60rem) 100vw, 56vw' }, base)}<figcaption>${esc(m.caption)}</figcaption></figure>`;
 }
 
 export function render(c) {
@@ -140,10 +145,14 @@ export function render(c) {
     ['contact', c.nav.contact],
   ];
 
+  // The stage crops every picture to a tall frame, so a wide picture is drawn wider than the frame.
+  const stageSizes = (w, h) => `(max-width: 60rem) ${Math.round(100 * Math.max(1, (w / h) / 0.75))}vw, ${Math.round(47 * Math.max(1, (w / h) / 0.78))}vw`;
+  const css = readFileSync('styles.css', 'utf8').replaceAll("url('assets/", `url('${base}assets/`).trim();
+
   const stage = STAGE.map(
     ([key, src, w, h, pos], i) =>
       `<figure class="stage__frame${i === 0 ? ' is-active' : ''}" data-scene="${key}" data-caption="${esc(c.stage[key])}">
-        ${img({ src, w, h, alt: c.stage[key], pos, lazy: i !== 0 }, base)}
+        ${img({ src, w, h, alt: c.stage[key], pos, lazy: i !== 0, sizes: stageSizes(w, h) }, base)}
       </figure>`
   ).join('');
 
@@ -215,7 +224,7 @@ export function render(c) {
 <title>${esc(c.meta.title)}</title>
 <meta name="description" content="${esc(c.meta.description)}">
 <meta name="theme-color" content="#0c0a08">
-<meta http-equiv="Content-Security-Policy" content="${CSP}">
+<meta http-equiv="Content-Security-Policy" content="${csp(css)}">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="${url}">
 <link rel="alternate" hreflang="${c.lang}" href="${url}">
@@ -234,7 +243,7 @@ export function render(c) {
 <link rel="apple-touch-icon" href="${base}assets/apple-touch-icon.png">
 <link rel="preload" href="${base}assets/fonts/albert-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${base}assets/fonts/imbue.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${base}styles.css">
+<style>${css}</style>
 <script>${INLINE_JS}</script>
 <script type="application/ld+json">${JSON.stringify({
   '@context': 'https://schema.org',
@@ -354,7 +363,7 @@ export function render(c) {
 </main>
 
 <footer class="foot">
-  <figure class="foot__photo">${img({ src: 'assets/cathedrale-facade.jpg', w: 1600, h: 1190, alt: c.stage.facade, pos: '50% 40%' }, base)}</figure>
+  <figure class="foot__photo">${img({ src: 'assets/cathedrale-facade.jpg', w: 1600, h: 1190, alt: c.stage.facade, pos: '50% 40%', sizes: '(max-width: 60rem) 150vw, 85vw' }, base)}</figure>
   <div class="foot__side">
     <p class="foot__mark">${esc(c.hero.name)}</p>
     <ul class="foot__menu">

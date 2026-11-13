@@ -6,7 +6,7 @@
 <title>Axel Denis, cybersecurity engineering student</title>
 <meta name="description" content="Cybersecurity engineering student at EiJV (Amiens, France), looking for a two-year SOC, network or infrastructure security apprenticeship from September 2027.">
 <meta name="theme-color" content="#0c0a08">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; style-src 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; style-src 'self' 'sha256-+YDRC5MQtpC09CNbl7Q/qmWloV1fWyp0UMJpU0KiSqs='; style-src-attr 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="https://axeldenis.me/en/">
 <link rel="alternate" hreflang="en" href="https://axeldenis.me/en/">
@@ -25,7 +25,337 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preload" href="../assets/fonts/albert-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/imbue.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../styles.css?v=f3c27875">
+<style>/* Axel Denis, portfolio.
+   Direction "split stage" (taste skill, seed 1309929159): warm black, gold, Imbue and Albert Sans.
+   The left half holds the night watchers of Amiens; the right half tells the story. */
+
+/* Typefaces, served from this domain (SIL Open Font Licence). */
+@font-face { font-family: 'Albert Sans'; font-style: normal; font-weight: 400 500; font-display: swap; src: url('../assets/fonts/albert-sans.woff2') format('woff2'); }
+@font-face { font-family: 'Albert Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url('../assets/fonts/albert-sans-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Imbue'; font-style: normal; font-weight: 400; font-display: swap; src: url('../assets/fonts/imbue.woff2') format('woff2'); }
+
+:root {
+  --bg: #0c0a08;
+  --surface: #181512;
+  --ink: #ffffff;
+  --muted: #a39d95;
+  --line: #4a433b;
+  --accent: #c9a45a;
+  --accent-ink: #0c0a08;
+  --paper: #e2e0dc;
+  --paper-ink: #1a1612;
+  --paper-muted: #5a544c;
+
+  --font-display: 'Imbue', 'Times New Roman', serif;
+  --font-text: 'Albert Sans', system-ui, sans-serif;
+
+  /* The five sizes of the page. */
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2.25rem, 1.4rem + 3.2vw, 4rem);
+  --step-display: min(19.5vw, 29svh);
+
+  --margin: clamp(1.25rem, 2.2vw, 2rem);
+  --pad: clamp(1.5rem, 4vw, 4.5rem);
+  --section: clamp(7.5rem, 12vw, 12rem);
+  --stage-w: 47vw;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: var(--step-body); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+h1, h2, h3, h4, p, figure, ul, ol, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+picture { display: contents; }
+img { height: auto; background: var(--surface); }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+:target { scroll-margin-top: 5rem; }
+h1, h2, h3, h4 { font-weight: 400; font-size: inherit; text-wrap: balance; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skip { position: absolute; left: var(--margin); top: -4rem; z-index: 50; background: var(--accent); color: var(--accent-ink); padding: 0.6rem 1rem; }
+.skip:focus { top: 1rem; }
+
+.section-title { font-family: var(--font-display); text-transform: uppercase; font-size: var(--step-head); line-height: 0.95; letter-spacing: -0.01em; }
+
+/* ---------- controls ---------- */
+.button { display: inline-flex; align-items: center; min-height: 3.25rem; padding: 0 1.6rem; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 500; transition: transform var(--t-press) var(--ease-out), background-color var(--t-hover) ease; }
+.button:active { transform: scale(0.97); }
+.link { text-decoration: underline; text-underline-offset: 0.22em; text-decoration-thickness: 0.07em; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); transition: text-decoration-color var(--t-hover) ease, color var(--t-hover) ease; }
+@media (hover: hover) and (pointer: fine) {
+  .button:hover { background: #dcb96d; }
+  .link:hover { text-decoration-color: currentColor; color: var(--accent); }
+}
+
+/* ---------- top bar: stays within reach, steps aside while reading down ---------- */
+.bar { position: fixed; inset: 0 0 auto 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 0.9rem var(--margin); transition: transform var(--t-ui) var(--ease-out), background-color var(--t-hover) ease; }
+.bar.is-scrolled { background: var(--bg); }
+.bar.is-hidden { transform: translateY(-100%); }
+.bar:focus-within { transform: none; }
+.bar__mark { visibility: hidden; text-decoration: none; font-weight: 500; }
+.bar.is-scrolled .bar__mark { visibility: visible; }
+.bar__toggle { display: none; min-height: 2.75rem; padding: 0 0.25rem; font-size: var(--step-small); text-decoration: underline; text-underline-offset: 0.22em; }
+.bar__nav ul { display: flex; gap: clamp(1rem, 2vw, 2rem); align-items: center; font-size: var(--step-small); }
+.bar__nav a { text-decoration: none; transition: color var(--t-hover) ease; }
+.bar__nav a:hover { color: var(--accent); }
+.bar__action { color: var(--accent); text-decoration: underline !important; text-underline-offset: 0.22em; }
+
+/* ---------- split: fixed photograph, scrolling column ---------- */
+.split { position: relative; display: grid; grid-template-columns: var(--stage-w) 1fr; }
+.stage { grid-column: 1; grid-row: 1; position: sticky; top: 0; height: 100svh; padding: 20px 0 20px var(--margin); display: grid; grid-template-rows: 1fr auto; }
+.stage__inner { position: relative; min-height: 0; }
+.stage__frame { position: absolute; inset: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity 900ms ease, visibility 0s linear 900ms; }
+.stage__frame.is-active { opacity: 1; visibility: visible; transition: opacity 900ms ease, visibility 0s; }
+.stage__frame img { width: 100%; height: 100%; object-fit: cover; }
+.stage__caption { padding-top: 0.6rem; font-size: var(--step-small); color: var(--muted); }
+
+.col { grid-column: 2; grid-row: 1; padding-inline: var(--pad); min-width: 0; }
+
+/* ---------- hero ---------- */
+.hero { position: relative; min-height: 100svh; padding-top: 14svh; padding-bottom: calc(var(--step-display) * 0.85 + 5.5rem); }
+.hero__text { max-width: 30rem; margin-inline: auto; }
+.hero__lead { font-size: var(--step-lead); line-height: 1.3; max-width: 22ch; }
+.hero__intro { margin-top: 1.75rem; max-width: 44ch; }
+.hero__facts { margin-top: 1.5rem; }
+.hero__facts div { display: flex; justify-content: space-between; gap: 1.5rem; padding-block: 0.3rem; }
+.hero__facts dt { color: var(--muted); }
+.hero__facts dd { text-align: right; }
+.hero__actions { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; }
+
+/* The name starts over the photograph and ends on the right margin. */
+.wordmark { position: absolute; z-index: 5; bottom: 2.5rem; right: calc(var(--margin) - var(--pad)); transform-origin: 100% 100%; font-family: var(--font-display); text-transform: uppercase; font-size: var(--step-display); line-height: 0.85; letter-spacing: -0.01em; white-space: nowrap; }
+
+/* ---------- about: the letter ---------- */
+.about { max-width: 32.5rem; margin-inline: auto; padding-block: var(--section); }
+.about__title { margin-bottom: 2.5rem; }
+.about p + p { margin-top: 1.4em; }
+.about mark { background: var(--accent); color: var(--accent-ink); padding: 0 0.15em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.about__sign { margin-top: 2.5rem !important; font-style: italic; font-size: var(--step-lead); }
+.about__sign span { display: block; font-style: normal; font-size: var(--step-small); color: var(--muted); margin-top: 0.2rem; }
+
+/* ---------- path: two-ended rows ---------- */
+.path { max-width: 32.5rem; margin-inline: auto; padding-bottom: var(--section); }
+.path .section-title { margin-bottom: 3.5rem; }
+.chapter + .chapter { margin-top: 4.5rem; }
+.chapter__photo { display: none; }
+.chapter__title { font-weight: 500; font-size: var(--step-lead); line-height: 1.25; }
+.chapter__text { margin-top: 0.9rem; }
+.rows { margin-top: 1.25rem; }
+.rows li { display: flex; justify-content: space-between; align-items: baseline; gap: 1.25rem; min-height: 2.25rem; padding-block: 0.3rem; }
+.rows__name { position: relative; padding-left: 1.6rem; }
+.rows__name::before { content: ''; position: absolute; left: 0; top: 0.4em; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--line); }
+.rows__value { flex: none; font-size: var(--step-small); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- work: one whole picture per project, the story beside it ---------- */
+.work { padding: var(--section) var(--margin) 0; }
+.project { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2rem; row-gap: 2rem; align-items: start; padding-block: 3.5rem 7rem; }
+.project__media { grid-column: 1 / span 7; position: sticky; top: var(--margin); }
+.project__text { grid-column: 8 / span 5; padding-left: 2rem; }
+.project:nth-of-type(even) .project__media { grid-column: 6 / span 7; grid-row: 1; }
+.project:nth-of-type(even) .project__text { grid-column: 1 / span 5; grid-row: 1; padding: 0 2rem 0 0; }
+/* A tall picture takes a narrower column, so no hole opens beside it. */
+.project--tall .project__media { grid-column: 1 / span 5; }
+.project--tall .project__text { grid-column: 7 / span 6; padding: 0; }
+.project--tall:nth-of-type(even) .project__media { grid-column: 8 / span 5; }
+.project--tall:nth-of-type(even) .project__text { grid-column: 1 / span 6; padding: 0; }
+.project__title { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(3rem, 1.2rem + 6.4vw, 7rem); line-height: 0.9; letter-spacing: -0.01em; }
+.project__discipline { margin-top: 0.75rem; color: var(--muted); }
+.project__text h4 { margin-top: 2.25rem; font-weight: 500; font-size: var(--step-lead); line-height: 1.25; }
+.project__text h4 + p { margin-top: 0.6rem; max-width: 34rem; }
+.project__stack { margin-top: 2.25rem; color: var(--muted); max-width: 34rem; }
+.project__text .link { display: inline-block; margin-top: 1rem; }
+
+.shot { width: fit-content; max-width: 100%; }
+.project:nth-of-type(even) .shot { margin-left: auto; }
+.shot img { width: auto; max-width: 100%; max-height: 84svh; }
+.shot figcaption { margin-top: 0.75rem; font-size: var(--step-small); color: var(--muted); }
+
+.devices { position: relative; padding-bottom: 12%; }
+.devices__desktop { width: 86% !important; max-height: none !important; }
+.devices__phone { position: absolute; right: 0; bottom: 0; width: 27% !important; max-height: none !important; border: 6px solid var(--bg); }
+
+.shot--compare { width: min(100%, calc(84svh * 1200 / 1668)); }
+.compare { position: relative; width: 100%; aspect-ratio: 1200 / 1668; overflow: hidden; touch-action: pan-y; }
+.compare img { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: cover; }
+.compare__after { clip-path: inset(0 0 0 var(--x)); }
+.compare__handle { position: absolute; top: 0; bottom: 0; left: var(--x); width: 4px; transform: translateX(-50%); background: var(--accent); pointer-events: none; }
+.compare__handle::after { content: ""; position: absolute; top: 50%; left: 50%; width: 2.75rem; height: 2.75rem; transform: translate(-50%, -50%); border-radius: 50%; background: var(--accent); }
+.compare__label { position: absolute; top: var(--margin); padding: 0.35rem 0.7rem; background: rgb(12 10 8 / 0.82); font-size: var(--step-small); pointer-events: none; }
+.compare__label--before { left: var(--margin); }
+.compare__label--after { right: var(--margin); }
+.compare__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.compare:has(.compare__range:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ---------- lab: the live network plan ---------- */
+.lab { background: var(--surface); padding: var(--section) var(--margin); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2rem; }
+.lab__head { grid-column: 1 / span 8; margin-bottom: 4rem; }
+.lab__head p { margin-top: 1.5rem; max-width: 46ch; font-size: var(--step-lead); line-height: 1.35; }
+.lab__body { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; row-gap: 3rem; }
+.lab__body > .map { grid-column: 1 / span 8; grid-row: 1 / span 2; }
+.lab__detail { grid-column: 9 / span 4; }
+.lab__roadmap { grid-column: 9 / span 4; }
+
+.map { position: relative; aspect-ratio: 1000 / 640; container-type: inline-size; }
+.map__zone { position: absolute; left: 1%; top: 51%; width: 53.5%; bottom: 0; background: rgb(12 10 8 / 0.5); display: flex; align-items: flex-start; justify-content: flex-end; padding: 0.6em 0.8em; font-size: clamp(0.8125rem, 1.55cqi, 0.875rem); color: var(--muted); }
+.map__wires { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--line); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.node { position: absolute; transform: translate(-50%, -50%); max-width: 9.5em; text-align: center; text-wrap: balance; padding: 0.4em 0.7em; background: var(--bg); border: 2px solid var(--line); font-size: clamp(0.8125rem, 2.05cqi, 1.1875rem); line-height: 1.2; transition: background-color var(--t-hover) ease, color var(--t-hover) ease, border-color var(--t-hover) ease, transform var(--t-press) var(--ease-out); }
+.node--done { border-color: var(--accent); }
+.node--next { border-color: var(--accent); border-style: dashed; }
+button.node:hover { border-color: var(--ink); }
+button.node:active { transform: translate(-50%, -50%) scale(0.96); }
+button.node[aria-pressed='true'] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+.lab__detail h3 { font-family: var(--font-display); text-transform: uppercase; font-size: var(--step-head); line-height: 0.95; }
+.lab__status { margin-top: 0.75rem; color: var(--muted); }
+.lab__status--done, .lab__status--next { color: var(--accent); }
+.lab__role { margin-top: 0.75rem; }
+.lab__hosts-title { margin-top: 1.5rem; color: var(--muted); font-size: var(--step-small); }
+.lab__hosts { margin-top: 0.4rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.lab__roadmap h3 { font-weight: 500; font-size: var(--step-lead); margin-bottom: 1rem; }
+.lab__roadmap ol { list-style: decimal; padding-left: 1.6rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lab__roadmap li { padding-block: 0.2rem; }
+.lab__roadmap li.is-done, .lab__roadmap li.is-next { color: var(--ink); }
+.lab__note { margin-top: 1.25rem; font-size: var(--step-small); color: var(--muted); }
+
+/* ---------- skills: printed as a menu ---------- */
+.skills { padding: calc(var(--section) * 0.6) var(--margin); display: grid; place-items: center; }
+.menu { --cut: 14px; width: min(100%, 38rem); background: var(--paper); color: var(--paper-ink); padding: calc(3.5rem + var(--cut)) clamp(1.25rem, 4vw, 3.5rem);
+  clip-path: polygon(0 var(--cut), 5% 0, 10% var(--cut), 15% 0, 20% var(--cut), 25% 0, 30% var(--cut), 35% 0, 40% var(--cut), 45% 0, 50% var(--cut), 55% 0, 60% var(--cut), 65% 0, 70% var(--cut), 75% 0, 80% var(--cut), 85% 0, 90% var(--cut), 95% 0, 100% var(--cut),
+    100% calc(100% - var(--cut)), 95% 100%, 90% calc(100% - var(--cut)), 85% 100%, 80% calc(100% - var(--cut)), 75% 100%, 70% calc(100% - var(--cut)), 65% 100%, 60% calc(100% - var(--cut)), 55% 100%, 50% calc(100% - var(--cut)), 45% 100%, 40% calc(100% - var(--cut)), 35% 100%, 30% calc(100% - var(--cut)), 25% 100%, 20% calc(100% - var(--cut)), 15% 100%, 10% calc(100% - var(--cut)), 5% 100%, 0 calc(100% - var(--cut))); }
+.menu__title { text-align: center; margin-bottom: 2.75rem; }
+.menu__group { break-inside: avoid; padding-bottom: 2.75rem; }
+.menu__group:last-child { padding-bottom: 0; }
+@media (min-width: 60.0625rem) {
+  .menu { width: min(100%, 68rem); }
+  .menu__groups { columns: 2; column-gap: clamp(2.5rem, 5vw, 5rem); }
+  .menu__group:nth-child(4) { break-before: column; }
+  .menu__group:nth-child(3) { padding-bottom: 0; }
+}
+.menu__group h3 { font-weight: 500; font-size: var(--step-lead); margin-bottom: 1rem; }
+.menu__item + .menu__item { margin-top: 1rem; }
+.menu__line { display: flex; align-items: baseline; gap: 0.6rem; }
+.menu__dots { flex: 1; min-width: 1.5rem; border-bottom: 4px dotted #b3ab9e; transform: translateY(-0.3em); }
+.menu__value { flex: none; font-size: var(--step-small); }
+.menu__value--done { color: var(--paper-ink); font-weight: 500; }
+.menu__value--learning { color: var(--paper-muted); }
+.menu__desc { display: block; max-width: 34ch; margin-top: 0.2rem; font-size: var(--step-small); color: var(--paper-muted); }
+
+/* ---------- proof: plain names in columns ---------- */
+.names { background: var(--surface); padding: calc(var(--section) * 0.7) var(--margin); }
+.names .section-title { margin-bottom: 3.5rem; }
+.names__cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; font-size: var(--step-lead); line-height: 1.45; }
+.names__cols li + li { margin-top: 0.2rem; }
+.names__kind { color: var(--muted); }
+.names__cols a { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 0.06em; text-decoration-color: var(--muted); transition: color var(--t-hover) ease; }
+.names__cols a:hover { color: var(--accent); }
+
+/* ---------- contact band ---------- */
+.contact { padding: var(--section) var(--margin) 7.5rem; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2rem; row-gap: 2rem; align-items: start; }
+.contact__sentence { grid-column: 1 / span 6; font-size: var(--step-lead); line-height: 1.3; max-width: 26ch; }
+.contact__links { grid-column: 8 / span 5; display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+.contact__question { font-weight: 500; margin-bottom: 0.75rem; }
+.contact__links a { text-decoration: underline; text-underline-offset: 0.22em; text-decoration-thickness: 0.07em; overflow-wrap: anywhere; transition: color var(--t-hover) ease; }
+.contact__links a:hover { color: var(--accent); }
+.contact__place { grid-column: 8 / span 5; font-size: var(--step-small); color: var(--muted); }
+
+/* ---------- footer ---------- */
+.foot { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; background: var(--surface); }
+.foot__photo { overflow: hidden; }
+.foot__photo img { width: 100%; height: 100%; object-fit: cover; }
+.foot__side { display: flex; flex-direction: column; padding: 5rem var(--margin) var(--margin) clamp(1.5rem, 8vw, 8rem); }
+.foot__mark { font-weight: 500; color: var(--muted); }
+.foot__menu { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.foot__menu a { display: inline-block; text-decoration: none; font-family: var(--font-display); text-transform: uppercase; font-size: var(--step-head); line-height: 1; transition: transform var(--t-ui) var(--ease-out), color var(--t-hover) ease; }
+@media (hover: hover) and (pointer: fine) {
+  .foot__menu:hover a { color: var(--muted); }
+  .foot__menu a:hover { color: var(--ink); transform: translateX(12px); }
+}
+.foot__blocks { margin-top: 4rem; display: flex; flex-wrap: wrap; gap: 2.5rem 4rem; }
+.foot__blocks div { display: flex; flex-direction: column; gap: 0.3rem; }
+.foot__blocks a { transition: color var(--t-hover) ease; }
+.foot__blocks a:hover { color: var(--accent); }
+.foot__label { color: var(--muted); }
+.foot__credits { margin-top: auto; padding-top: 3rem; font-size: var(--step-small); color: var(--muted); max-width: 70ch; }
+.foot__legal { margin-top: 0.75rem; font-size: var(--step-small); color: var(--muted); }
+
+/* ---------- not found ---------- */
+.lost { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; padding: var(--margin); max-width: 44rem; }
+.lost p:last-child { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; margin-top: 1rem; }
+
+/* ---------- motion (content stays visible without JavaScript) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .stage__frame img { transform: scale(1.06); transition: transform 14s var(--ease-soft); }
+  .stage__frame.is-active img { transform: scale(1); }
+  .wordmark { animation: wm-in 900ms var(--ease-expo) both; }
+  @keyframes wm-in { from { translate: 0 10%; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage__frame, .stage__frame.is-active { transition: none; }
+}
+
+/* ---------- tablet and phone ---------- */
+@media (max-width: 60rem) {
+  :root { --step-display: 15.5vw; }
+  .bar__mark { visibility: visible; }
+  .bar__toggle { display: inline-flex; align-items: center; }
+  .js .bar__nav { display: none; }
+  .bar.is-open { background: var(--bg); }
+  .bar.is-open .bar__nav { display: block; position: absolute; inset: 100% 0 auto 0; background: var(--bg); padding: 0.5rem var(--margin) 1.75rem; }
+  .bar__nav ul { flex-direction: column; align-items: flex-start; gap: 0; font-size: var(--step-lead); }
+  .bar__nav a { display: block; padding-block: 0.55rem; }
+  .chapter__photo { display: block; aspect-ratio: 3 / 2; margin-bottom: 1.5rem; overflow: hidden; }
+  .chapter__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .split { display: flex; flex-direction: column; }
+  .stage { position: relative; height: 58svh; padding: 12px; }
+  .stage__frame:not(:first-child) { display: none; }
+  .stage__frame { opacity: 1; visibility: visible; }
+  .stage__caption { display: none; }
+  .stage { display: block; }
+  .stage__inner { height: 100%; }
+  .col { padding-inline: var(--margin); }
+  .hero { min-height: 0; padding-block: 0; }
+  .wordmark { position: relative; bottom: auto; right: auto; margin-top: -0.5em; }
+  .hero__text { margin: 1.75rem 0 0; }
+  .about, .path, .hero__text { margin-inline: 0; max-width: none; }
+  .project__text h4 + p, .project__stack { max-width: none; }
+  .about { padding-block: 6rem; }
+
+  .project { grid-template-columns: 1fr; padding-block: 3rem 5rem; }
+  .project .project__media, .project .project__text, .project:nth-of-type(even) .project__media, .project:nth-of-type(even) .project__text { grid-column: 1 / -1; grid-row: auto; position: static; padding: 0; }
+  .project__media { order: 2; }
+  .project:nth-of-type(even) .shot { margin-left: 0; }
+  .shot img { max-height: 70svh; }
+  .shot--compare { width: min(100%, calc(70svh * 1200 / 1668)); }
+
+  .lab { grid-template-columns: 1fr; }
+  .lab__head, .lab__body > .map, .lab__detail, .lab__roadmap { grid-column: 1 / -1; grid-row: auto; }
+  .lab__body { grid-template-columns: 1fr; }
+  .lab__body > .map { aspect-ratio: auto; container-type: normal; display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .lab__body > .map .map__wires, .lab__body > .map .map__zone { display: none; }
+  .lab__body > .map .node { position: static; transform: none; max-width: none; min-height: 2.75rem; margin-left: calc(var(--depth) * 1.1rem); font-size: var(--step-body); }
+  .lab__body > .map button.node:active { transform: scale(0.96); }
+
+  .names__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.25rem; row-gap: 2rem; font-size: var(--step-body); }
+
+  .contact { grid-template-columns: 1fr; }
+  .contact__sentence, .contact__links, .contact__place { grid-column: 1 / -1; }
+
+  .foot { grid-template-columns: 1fr; }
+  .foot__photo { height: 50svh; }
+  .foot__side { padding: 3rem var(--margin) var(--margin); }
+}</style>
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Axel Denis","url":"https://axeldenis.me/","jobTitle":"Engineering student, Cybersecurity track, EiJV","description":"Cybersecurity engineering student at EiJV (Amiens, France), looking for a two-year SOC, network or infrastructure security apprenticeship from September 2027.","email":"mailto:axel.denis.pro@hotmail.com","address":{"@type":"PostalAddress","addressLocality":"Amiens","addressCountry":"FR"},"alumniOf":"École d’Ingénieurs Jules Verne","knowsLanguage":["fr","en","es"],"sameAs":["https://www.linkedin.com/in/axel-denis-b68523292","https://github.com/Audrax42","https://tryhackme.com/p/axel802401"]}</script>
 </head>
@@ -48,17 +378,17 @@
 <div class="split" id="top">
   <div class="stage" aria-hidden="false">
     <div class="stage__inner"><figure class="stage__frame is-active" data-scene="gargouille" data-caption="A gargoyle on Amiens cathedral, at night">
-        <picture><source srcset="../assets/gargouille.avif" type="image/avif"><source srcset="../assets/gargouille.webp" type="image/webp"><img src="../assets/gargouille.jpg" width="1600" height="1163" alt="A gargoyle on Amiens cathedral, at night" style="object-position:64% 50%" fetchpriority="high" decoding="async"></picture>
+        <picture><source srcset="../assets/gargouille-800.avif 800w, ../assets/gargouille.avif 1600w" sizes="(max-width: 60rem) 183vw, 83vw" type="image/avif"><source srcset="../assets/gargouille-800.webp 800w, ../assets/gargouille.webp 1600w" sizes="(max-width: 60rem) 183vw, 83vw" type="image/webp"><img src="../assets/gargouille.jpg" width="1600" height="1163" alt="A gargoyle on Amiens cathedral, at night" style="object-position:64% 50%" fetchpriority="high" decoding="async"></picture>
       </figure><figure class="stage__frame" data-scene="portail" data-caption="The portal of Amiens cathedral, at night">
-        <picture><source srcset="../assets/cathedrale-portail.avif" type="image/avif"><source srcset="../assets/cathedrale-portail.webp" type="image/webp"><img src="../assets/cathedrale-portail.jpg" width="1200" height="1668" alt="The portal of Amiens cathedral, at night" style="object-position:50% 40%" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="../assets/cathedrale-portail-800.avif 800w, ../assets/cathedrale-portail.avif 1200w" sizes="(max-width: 60rem) 100vw, 47vw" type="image/avif"><source srcset="../assets/cathedrale-portail-800.webp 800w, ../assets/cathedrale-portail.webp 1200w" sizes="(max-width: 60rem) 100vw, 47vw" type="image/webp"><img src="../assets/cathedrale-portail.jpg" width="1200" height="1668" alt="The portal of Amiens cathedral, at night" style="object-position:50% 40%" loading="lazy" decoding="async"></picture>
       </figure><figure class="stage__frame" data-scene="tour" data-caption="The Perret tower in Amiens, at night">
-        <picture><source srcset="../assets/tour-perret-nuit.avif" type="image/avif"><source srcset="../assets/tour-perret-nuit.webp" type="image/webp"><img src="../assets/tour-perret-nuit.jpg" width="1200" height="1775" alt="The Perret tower in Amiens, at night" style="object-position:50% 35%" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="../assets/tour-perret-nuit-800.avif 800w, ../assets/tour-perret-nuit.avif 1200w" sizes="(max-width: 60rem) 100vw, 47vw" type="image/avif"><source srcset="../assets/tour-perret-nuit-800.webp 800w, ../assets/tour-perret-nuit.webp 1200w" sizes="(max-width: 60rem) 100vw, 47vw" type="image/webp"><img src="../assets/tour-perret-nuit.jpg" width="1200" height="1775" alt="The Perret tower in Amiens, at night" style="object-position:50% 35%" loading="lazy" decoding="async"></picture>
       </figure><figure class="stage__frame" data-scene="veille" data-caption="Saint-Quentin at night, seen from the basilica gallery">
-        <picture><source srcset="../assets/saint-quentin-nuit.avif" type="image/avif"><source srcset="../assets/saint-quentin-nuit.webp" type="image/webp"><img src="../assets/saint-quentin-nuit.jpg" width="1600" height="1067" alt="Saint-Quentin at night, seen from the basilica gallery" style="object-position:38% 50%" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="../assets/saint-quentin-nuit-800.avif 800w, ../assets/saint-quentin-nuit.avif 1600w" sizes="(max-width: 60rem) 200vw, 90vw" type="image/avif"><source srcset="../assets/saint-quentin-nuit-800.webp 800w, ../assets/saint-quentin-nuit.webp 1600w" sizes="(max-width: 60rem) 200vw, 90vw" type="image/webp"><img src="../assets/saint-quentin-nuit.jpg" width="1600" height="1067" alt="Saint-Quentin at night, seen from the basilica gallery" style="object-position:38% 50%" loading="lazy" decoding="async"></picture>
       </figure><figure class="stage__frame" data-scene="citadelle" data-caption="Plan of the Doullens citadel, 1660: defence in layers">
-        <picture><source srcset="../assets/citadelle-doullens-1660.avif" type="image/avif"><source srcset="../assets/citadelle-doullens-1660.webp" type="image/webp"><img src="../assets/citadelle-doullens-1660.jpg" width="1400" height="1547" alt="Plan of the Doullens citadel, 1660: defence in layers" style="object-position:50% 45%" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="../assets/citadelle-doullens-1660-800.avif 800w, ../assets/citadelle-doullens-1660.avif 1400w" sizes="(max-width: 60rem) 121vw, 55vw" type="image/avif"><source srcset="../assets/citadelle-doullens-1660-800.webp 800w, ../assets/citadelle-doullens-1660.webp 1400w" sizes="(max-width: 60rem) 121vw, 55vw" type="image/webp"><img src="../assets/citadelle-doullens-1660.jpg" width="1400" height="1547" alt="Plan of the Doullens citadel, 1660: defence in layers" style="object-position:50% 45%" loading="lazy" decoding="async"></picture>
       </figure><figure class="stage__frame" data-scene="alicante" data-caption="The port of Alicante and Santa Bárbara castle, at night">
-        <picture><source srcset="../assets/alicante-nuit.avif" type="image/avif"><source srcset="../assets/alicante-nuit.webp" type="image/webp"><img src="../assets/alicante-nuit.jpg" width="1600" height="1060" alt="The port of Alicante and Santa Bárbara castle, at night" style="object-position:14% 50%" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="../assets/alicante-nuit-800.avif 800w, ../assets/alicante-nuit.avif 1600w" sizes="(max-width: 60rem) 201vw, 91vw" type="image/avif"><source srcset="../assets/alicante-nuit-800.webp 800w, ../assets/alicante-nuit.webp 1600w" sizes="(max-width: 60rem) 201vw, 91vw" type="image/webp"><img src="../assets/alicante-nuit.jpg" width="1600" height="1060" alt="The port of Alicante and Santa Bárbara castle, at night" style="object-position:14% 50%" loading="lazy" decoding="async"></picture>
       </figure></div>
     <p class="stage__caption" aria-live="off">A gargoyle on Amiens cathedral, at night</p>
   </div>
@@ -88,22 +418,22 @@
     <section class="path" id="path" aria-labelledby="path-title">
       <h2 id="path-title" class="section-title">My journey</h2>
       <div class="chapter" data-scene-trigger="tour">
-          <figure class="chapter__photo"><picture><source srcset="../assets/tour-perret-nuit.avif" type="image/avif"><source srcset="../assets/tour-perret-nuit.webp" type="image/webp"><img src="../assets/tour-perret-nuit.jpg" width="1200" height="1775" alt="The Perret tower in Amiens, at night" style="object-position:50% 35%" loading="lazy" decoding="async"></picture></figure>
+          <figure class="chapter__photo"><picture><source srcset="../assets/tour-perret-nuit-800.avif 800w, ../assets/tour-perret-nuit.avif 1200w" sizes="100vw" type="image/avif"><source srcset="../assets/tour-perret-nuit-800.webp 800w, ../assets/tour-perret-nuit.webp 1200w" sizes="100vw" type="image/webp"><img src="../assets/tour-perret-nuit.jpg" width="1200" height="1775" alt="The Perret tower in Amiens, at night" style="object-position:50% 35%" loading="lazy" decoding="async"></picture></figure>
           <h3 class="chapter__title">Understanding what is at stake</h3>
           <p class="chapter__text">I started with economics. That detour taught me how companies work, what they stand to lose and why they become targets. Understanding what an attacker is after is already the first step of defence.</p>
           <ul class="rows"><li><span class="rows__name">Bachelor’s year in Economics, Université de Picardie Jules Verne</span><span class="rows__value">2023–2024</span></li></ul>
         </div><div class="chapter" data-scene-trigger="veille">
-          <figure class="chapter__photo"><picture><source srcset="../assets/saint-quentin-nuit.avif" type="image/avif"><source srcset="../assets/saint-quentin-nuit.webp" type="image/webp"><img src="../assets/saint-quentin-nuit.jpg" width="1600" height="1067" alt="Saint-Quentin at night, seen from the basilica gallery" style="object-position:38% 50%" loading="lazy" decoding="async"></picture></figure>
+          <figure class="chapter__photo"><picture><source srcset="../assets/saint-quentin-nuit-800.avif 800w, ../assets/saint-quentin-nuit.avif 1600w" sizes="100vw" type="image/avif"><source srcset="../assets/saint-quentin-nuit-800.webp 800w, ../assets/saint-quentin-nuit.webp 1600w" sizes="100vw" type="image/webp"><img src="../assets/saint-quentin-nuit.jpg" width="1600" height="1067" alt="Saint-Quentin at night, seen from the basilica gallery" style="object-position:38% 50%" loading="lazy" decoding="async"></picture></figure>
           <h3 class="chapter__title">Getting hands-on</h3>
           <p class="chapter__text">The urge to work with the technology itself took over. During my BTS (a two-year technical degree) I learned networking (DNS, VLANs, routing), Linux, programming and electronics, in theory and in practice. That is where I built Aquatrack.</p>
           <ul class="rows"><li><span class="rows__name">BTS CIEL (Cybersecurity, IT, Networks, Electronics), Saint-Quentin</span><span class="rows__value">2024–2026</span></li><li><span class="rows__name">Production operator, Verbau France, industrial manufacturing</span><span class="rows__value">summer 2024</span></li></ul>
         </div><div class="chapter" data-scene-trigger="alicante">
-          <figure class="chapter__photo"><picture><source srcset="../assets/alicante-nuit.avif" type="image/avif"><source srcset="../assets/alicante-nuit.webp" type="image/webp"><img src="../assets/alicante-nuit.jpg" width="1600" height="1060" alt="The port of Alicante and Santa Bárbara castle, at night" style="object-position:14% 50%" loading="lazy" decoding="async"></picture></figure>
+          <figure class="chapter__photo"><picture><source srcset="../assets/alicante-nuit-800.avif 800w, ../assets/alicante-nuit.avif 1600w" sizes="100vw" type="image/avif"><source srcset="../assets/alicante-nuit-800.webp 800w, ../assets/alicante-nuit.webp 1600w" sizes="100vw" type="image/webp"><img src="../assets/alicante-nuit.jpg" width="1600" height="1060" alt="The port of Alicante and Santa Bárbara castle, at night" style="object-position:14% 50%" loading="lazy" decoding="async"></picture></figure>
           <h3 class="chapter__title">Building as a team</h3>
           <p class="chapter__text">Three months in a Spanish web agency, inside a development team. I worked on the complete redesign of the RELSA website and contributed to the back end, with daily meetings and weekly reports, in a foreign language. For an internal need, I also built an image compression app on my own.</p>
           <ul class="rows"><li><span class="rows__name">Full stack developer (internship), Nitsnets, Alicante, Spain</span><span class="rows__value">May–July 2025</span></li></ul>
         </div><div class="chapter" data-scene-trigger="citadelle">
-          <figure class="chapter__photo"><picture><source srcset="../assets/citadelle-doullens-1660.avif" type="image/avif"><source srcset="../assets/citadelle-doullens-1660.webp" type="image/webp"><img src="../assets/citadelle-doullens-1660.jpg" width="1400" height="1547" alt="Plan of the Doullens citadel, 1660: defence in layers" style="object-position:50% 45%" loading="lazy" decoding="async"></picture></figure>
+          <figure class="chapter__photo"><picture><source srcset="../assets/citadelle-doullens-1660-800.avif 800w, ../assets/citadelle-doullens-1660.avif 1400w" sizes="100vw" type="image/avif"><source srcset="../assets/citadelle-doullens-1660-800.webp 800w, ../assets/citadelle-doullens-1660.webp 1400w" sizes="100vw" type="image/webp"><img src="../assets/citadelle-doullens-1660.jpg" width="1400" height="1547" alt="Plan of the Doullens citadel, 1660: defence in layers" style="object-position:50% 45%" loading="lazy" decoding="async"></picture></figure>
           <h3 class="chapter__title">Learning to defend</h3>
           <p class="chapter__text">I chose to specialise. Alongside school, I train on TryHackMe (SOC simulator, preparing the SAL1 certification) and HackTheBox. I am discovering SIEM, EDR, log analysis, MITRE ATT&amp;CK, ISO 27001 and NIS2, and I am building my homelab.</p>
           <ul class="rows"><li><span class="rows__name">Engineering degree, Cybersecurity, École d’Ingénieurs Jules Verne, Amiens</span><span class="rows__value">2026–2029</span></li><li><span class="rows__name">Programme accredited SecNumEdu by ANSSI, the French cybersecurity agency</span><span class="rows__value">since 2026</span></li></ul>
@@ -120,7 +450,7 @@
 <section class="work" id="work" aria-labelledby="work-title">
   <h2 id="work-title" class="section-title work__title">Projects</h2>
   <article class="project project--photo" id="project-homelab" aria-labelledby="t-homelab">
-        <div class="project__media"><figure class="shot"><picture><source srcset="../assets/cisco-2960.avif" type="image/avif"><source srcset="../assets/cisco-2960.webp" type="image/webp"><img src="../assets/cisco-2960.jpg" width="1600" height="1200" alt="Circuit board of a Cisco Catalyst 2960 switch, close-up of its Broadcom chips" loading="lazy" decoding="async"></picture><figcaption>Inside a Cisco Catalyst 2960, the switch that carries my VLANs.</figcaption></figure></div>
+        <div class="project__media"><figure class="shot"><picture><source srcset="../assets/cisco-2960-800.avif 800w, ../assets/cisco-2960.avif 1600w" sizes="(max-width: 60rem) 100vw, 56vw" type="image/avif"><source srcset="../assets/cisco-2960-800.webp 800w, ../assets/cisco-2960.webp 1600w" sizes="(max-width: 60rem) 100vw, 56vw" type="image/webp"><img src="../assets/cisco-2960.jpg" width="1600" height="1200" alt="Circuit board of a Cisco Catalyst 2960 switch, close-up of its Broadcom chips" loading="lazy" decoding="async"></picture><figcaption>Inside a Cisco Catalyst 2960, the switch that carries my VLANs.</figcaption></figure></div>
         <div class="project__text">
           <h3 class="project__title" id="t-homelab">Homelab</h3>
           <p class="project__discipline">Personal infrastructure, in progress</p>
@@ -129,7 +459,7 @@
           <a class="link" href="https://github.com/Audrax42/homelab" rel="noopener">Documentation on GitHub</a>
         </div>
       </article><article class="project project--photo project--tall" id="project-aquatrack" aria-labelledby="t-aquatrack">
-        <div class="project__media"><figure class="shot"><picture><source srcset="../assets/esp32-cam.avif" type="image/avif"><source srcset="../assets/esp32-cam.webp" type="image/webp"><img src="../assets/esp32-cam.jpg" width="1000" height="1312" alt="An ESP32-CAM module seen from the front, with its camera and card reader" loading="lazy" decoding="async"></picture><figcaption>An ESP32-CAM module, the heart of the sensor.</figcaption></figure></div>
+        <div class="project__media"><figure class="shot"><picture><source srcset="../assets/esp32-cam-800.avif 800w, ../assets/esp32-cam.avif 1000w" sizes="(max-width: 60rem) 100vw, 40vw" type="image/avif"><source srcset="../assets/esp32-cam-800.webp 800w, ../assets/esp32-cam.webp 1000w" sizes="(max-width: 60rem) 100vw, 40vw" type="image/webp"><img src="../assets/esp32-cam.jpg" width="1000" height="1312" alt="An ESP32-CAM module seen from the front, with its camera and card reader" loading="lazy" decoding="async"></picture><figcaption>An ESP32-CAM module, the heart of the sensor.</figcaption></figure></div>
         <div class="project__text">
           <h3 class="project__title" id="t-aquatrack">Aquatrack</h3>
           <p class="project__discipline">Embedded system, BTS project, 2026</p>
@@ -140,7 +470,7 @@
       </article><article class="project project--devices" id="project-relsa" aria-labelledby="t-relsa">
         <div class="project__media"><figure class="shot shot--devices">
       <div class="devices">
-        <picture><source srcset="../assets/relsa-desktop.avif" type="image/avif"><source srcset="../assets/relsa-desktop.webp" type="image/webp"><img class="devices__desktop" src="../assets/relsa-desktop.jpg" width="1280" height="779" alt="The relsa.es home page on a desktop screen" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="../assets/relsa-desktop-800.avif 800w, ../assets/relsa-desktop.avif 1280w" sizes="(max-width: 60rem) 86vw, 48vw" type="image/avif"><source srcset="../assets/relsa-desktop-800.webp 800w, ../assets/relsa-desktop.webp 1280w" sizes="(max-width: 60rem) 86vw, 48vw" type="image/webp"><img class="devices__desktop" src="../assets/relsa-desktop.jpg" width="1280" height="779" alt="The relsa.es home page on a desktop screen" loading="lazy" decoding="async"></picture>
         <picture><source srcset="../assets/relsa-mobile.avif" type="image/avif"><source srcset="../assets/relsa-mobile.webp" type="image/webp"><img class="devices__phone" src="../assets/relsa-mobile.jpg" width="560" height="969" alt="The relsa.es home page on a phone" loading="lazy" decoding="async"></picture>
       </div>
       <figcaption>relsa.es, on desktop and on a phone.</figcaption>
@@ -304,7 +634,7 @@
 </main>
 
 <footer class="foot">
-  <figure class="foot__photo"><picture><source srcset="../assets/cathedrale-facade.avif" type="image/avif"><source srcset="../assets/cathedrale-facade.webp" type="image/webp"><img src="../assets/cathedrale-facade.jpg" width="1600" height="1190" alt="The façade of Amiens cathedral, at night" style="object-position:50% 40%" loading="lazy" decoding="async"></picture></figure>
+  <figure class="foot__photo"><picture><source srcset="../assets/cathedrale-facade-800.avif 800w, ../assets/cathedrale-facade.avif 1600w" sizes="(max-width: 60rem) 150vw, 85vw" type="image/avif"><source srcset="../assets/cathedrale-facade-800.webp 800w, ../assets/cathedrale-facade.webp 1600w" sizes="(max-width: 60rem) 150vw, 85vw" type="image/webp"><img src="../assets/cathedrale-facade.jpg" width="1600" height="1190" alt="The façade of Amiens cathedral, at night" style="object-position:50% 40%" loading="lazy" decoding="async"></picture></figure>
   <div class="foot__side">
     <p class="foot__mark">Axel Denis</p>
     <ul class="foot__menu">
