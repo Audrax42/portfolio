@@ -30,6 +30,7 @@ Le site est publié par GitHub Pages depuis la branche `main` de ce dépôt (dos
 
 ## Entretien
 
+- Après une mise à jour poussée et en ligne, `node indexnow.mjs` prévient Bing (protocole IndexNow). La clé est le fichier `.txt` de 32 caractères à la racine : ne pas le supprimer.
 - `node build.mjs` régénère aussi `404.html`, `sitemap.xml`, `robots.txt` et `.well-known/security.txt`.
 - La date `Expires` de `security.txt` (dans `build.mjs`) est à renouveler une fois par an.
 - Chaque photo existe en `.avif`, `.webp` et `.jpg`. Pour une nouvelle photo, fournir les trois formats (les deux images du compresseur restent en JPEG, c'est la démonstration).
