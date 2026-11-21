@@ -247,16 +247,44 @@ export function render(c) {
 <script>${INLINE_JS}</script>
 <script type="application/ld+json">${JSON.stringify({
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: c.hero.name,
-  url: SITE,
-  jobTitle: c.about.role,
-  description: c.meta.description,
-  email: mail,
-  address: { '@type': 'PostalAddress', addressLocality: 'Amiens', addressCountry: 'FR' },
-  alumniOf: 'École d’Ingénieurs Jules Verne',
-  knowsLanguage: ['fr', 'en', 'es'],
-  sameAs: [c.contact.linkedin.href, 'https://github.com/Audrax42', 'https://tryhackme.com/p/axel802401'],
+  '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${url}#page`,
+      url,
+      name: c.meta.title,
+      inLanguage: c.lang,
+      dateModified: new Date().toISOString().slice(0, 10),
+      mainEntity: { '@id': `${SITE}#person` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${SITE}#person`,
+      name: c.hero.name,
+      givenName: 'Axel',
+      familyName: 'Denis',
+      url: SITE,
+      image: `${SITE}assets/share-${c.lang}.jpg`,
+      jobTitle: c.about.role,
+      description: c.meta.description,
+      email: mail,
+      address: { '@type': 'PostalAddress', addressLocality: 'Amiens', addressRegion: 'Hauts-de-France', addressCountry: 'FR' },
+      affiliation: { '@type': 'CollegeOrUniversity', name: 'École d’Ingénieurs Jules Verne', alternateName: 'EiJV', address: { '@type': 'PostalAddress', addressLocality: 'Amiens', addressCountry: 'FR' } },
+      alumniOf: [
+        { '@type': 'EducationalOrganization', name: 'Espace scolaire Condorcet', address: { '@type': 'PostalAddress', addressLocality: 'Saint-Quentin', addressCountry: 'FR' } },
+        { '@type': 'CollegeOrUniversity', name: 'Université de Picardie Jules Verne', alternateName: 'UPJV' },
+      ],
+      knowsAbout: ['Cybersécurité', 'SOC', 'Blue Team', 'SIEM', 'EDR', 'Sécurité réseau', 'VLAN', 'Linux', 'Proxmox', 'MITRE ATT&CK', 'ISO 27001', 'NIS2'],
+      knowsLanguage: ['fr', 'en', 'es'],
+      seeks: { '@type': 'Demand', name: c.lang === 'fr' ? 'Alternance de deux ans en SOC, Blue Team ou sécurité des infrastructures, dès septembre 2027' : 'Two-year SOC, Blue Team or infrastructure security apprenticeship, from September 2027' },
+      sameAs: [
+        c.contact.linkedin.href,
+        'https://github.com/Audrax42',
+        'https://tryhackme.com/p/axel802401',
+        'https://profile.hackthebox.com/profile/019cc2bf-5f03-7208-9cef-0fb1a0a8ac7f',
+      ],
+    },
+  ],
 }).replace(/</g, '\\u003c')}</script>
 </head>
 <body>

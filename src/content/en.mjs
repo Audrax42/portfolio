@@ -12,7 +12,7 @@ export default {
   meta: {
     title: 'Axel Denis, cybersecurity engineering student',
     description:
-      'Cybersecurity engineering student at EiJV (Amiens, France), looking for a two-year SOC, network or infrastructure security apprenticeship from September 2027.',
+      'Axel Denis, cybersecurity engineering student at EiJV (Amiens, France), looking for a two-year SOC, network or infrastructure security apprenticeship from September 2027.',
   },
 
   nav: {

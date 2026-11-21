@@ -12,7 +12,7 @@ export default {
   meta: {
     title: 'Axel Denis, élève-ingénieur en cybersécurité',
     description:
-      'Élève-ingénieur en cybersécurité à l’EiJV (Amiens). Je recherche une alternance de deux ans en SOC, sécurité réseau ou des infrastructures dès septembre 2027.',
+      'Axel Denis, élève-ingénieur en cybersécurité à l’EiJV (Amiens). Je recherche une alternance de deux ans en SOC, sécurité réseau ou des infrastructures dès septembre 2027.',
   },
 
   nav: {
