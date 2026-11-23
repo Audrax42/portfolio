@@ -57,6 +57,7 @@ writeFileSync('404.html', versioned(`<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page introuvable, Axel Denis</title>
+<meta name="description" content="Cette page n’existe pas sur le site d’Axel Denis. Retour au portfolio : parcours, projets et homelab.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0c0a08">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">

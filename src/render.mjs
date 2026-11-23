@@ -118,8 +118,8 @@ function media(m, base) {
   if (m.kind === 'compare') {
     return `<figure class="shot shot--compare">
       <div class="compare" style="--x: 50%">
-        ${img({ src: m.before.src, w: m.w, h: m.h, alt: m.alt, cls: 'compare__before', modern: false }, base)}
-        ${img({ src: m.after.src, w: m.w, h: m.h, alt: '', cls: 'compare__after', modern: false }, base)}
+        ${img({ src: m.before.src, w: m.w, h: m.h, alt: `${m.alt} (${m.before.label})`, cls: 'compare__before', modern: false }, base)}
+        ${img({ src: m.after.src, w: m.w, h: m.h, alt: `${m.alt} (${m.after.label})`, cls: 'compare__after', modern: false }, base)}
         <span class="compare__label compare__label--before">${esc(m.before.label)}</span>
         <span class="compare__label compare__label--after">${esc(m.after.label)}</span>
         <span class="compare__handle" aria-hidden="true"></span>
