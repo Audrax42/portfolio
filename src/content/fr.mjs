@@ -30,7 +30,7 @@ export default {
     name: 'Axel Denis',
     lead: 'Je construis des systèmes pour comprendre comment les défendre.',
     intro:
-      'Élève-ingénieur en cybersécurité à l’École d’Ingénieurs Jules Verne d’Amiens, je cherche une alternance de deux ans en SOC à partir de septembre 2027.',
+      'Je suis Axel Denis, élève-ingénieur en cybersécurité à l’École d’Ingénieurs Jules Verne d’Amiens. Je cherche une alternance de deux ans en SOC à partir de septembre 2027.',
     facts: [
       ['Alternance', 'septembre 2027, deux ans'],
       ['Rythme', 'une semaine école, une semaine entreprise'],

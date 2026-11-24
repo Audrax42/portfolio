@@ -30,7 +30,7 @@ export default {
     name: 'Axel Denis',
     lead: 'I build systems to understand how to defend them.',
     intro:
-      'Cybersecurity engineering student at École d’Ingénieurs Jules Verne in Amiens, France, looking for a two-year SOC apprenticeship from September 2027.',
+      'I am Axel Denis, a cybersecurity engineering student at École d’Ingénieurs Jules Verne in Amiens, France. I am looking for a two-year SOC apprenticeship from September 2027.',
     facts: [
       ['Apprenticeship', 'September 2027, two years'],
       ['Schedule', 'one week at school, one week at work'],
